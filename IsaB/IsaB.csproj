@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{75AAFED1-DDCB-4F0B-B1A9-1BF38738A931}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IsaB</RootNamespace>
+    <AssemblyName>IsaB</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>IsaB_TemporaryKey.pfx</PackageCertificateKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="IsaB_TemporaryKey.pfx" />
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Ausbauzustand.cs" />
+    <Compile Include="BusinessObjects\Baupreisindex.cs" />
+    <Compile Include="BusinessObjects\Bauweise.cs" />
+    <Compile Include="BusinessObjects\GebaeudeaertBaupreisindex.cs" />
+    <Compile Include="BusinessObjects\Gebaeudeart.cs" />
+    <Compile Include="BusinessObjects\GebaeudeartAusbau.cs" />
+    <Compile Include="BusinessObjects\GebaeudeartBauweise.cs" />
+    <Compile Include="BusinessObjects\GebaeudeartStandard.cs" />
+    <Compile Include="BusinessObjects\Gebaeudestandardstufe.cs" />
+    <Compile Include="BusinessObjects\Gebaeudeteil.cs" />
+    <Compile Include="BusinessObjects\Gesamtnutzungsdauer.cs" />
+    <Compile Include="BusinessObjects\Immobilie.cs" />
+    <Compile Include="BusinessObjects\ImmobilieBild.cs" />
+    <Compile Include="BusinessObjects\ImmobilieKorrekturfaktor.cs" />
+    <Compile Include="BusinessObjects\ImmobilieModernisierung.cs" />
+    <Compile Include="BusinessObjects\ImmobilieTeilStandard.cs" />
+    <Compile Include="BusinessObjects\Korrekturfaktor.cs" />
+    <Compile Include="BusinessObjects\Korrekturfaktortyp.cs" />
+    <Compile Include="BusinessObjects\Modernisierung.cs" />
+    <Compile Include="BusinessObjects\Modernisierungsgrad.cs" />
+    <Compile Include="BusinessObjects\Normalherstellungskosten.cs" />
+    <Compile Include="BusinessObjects\Waegungsanteil.cs" />
+    <Compile Include="Common\ByteArrayToImageSourceConverter.cs" />
+    <Compile Include="Common\StringToPlaceholderConverter.cs" />
+    <Compile Include="Entities\BaupreisindexEntity.cs" />
+    <Compile Include="Entities\GebaeudeartEntity.cs" />
+    <Compile Include="Entities\GebaeudeteilEntity.cs" />
+    <Compile Include="Entities\GebArtBaupreisindexEntity.cs" />
+    <Compile Include="Entities\GebArtStandardEntity.cs" />
+    <Compile Include="Entities\GebArtXAusbauEntity.cs" />
+    <Compile Include="Entities\GebArtXBauweiseEntity.cs" />
+    <Compile Include="Entities\GebAusbauzustandEntity.cs" />
+    <Compile Include="Entities\GebBauweiseEntity.cs" />
+    <Compile Include="Entities\GesamtnutzungsdauerEntity.cs" />
+    <Compile Include="Entities\ImmobilieBildEntity.cs" />
+    <Compile Include="Entities\ImmobilieEntity.cs" />
+    <Compile Include="Entities\ImmobilieKorrFaktorEntity.cs" />
+    <Compile Include="Entities\ImmobilieModernisierungEntiy.cs" />
+    <Compile Include="Entities\KorrekturfaktorEntity.cs" />
+    <Compile Include="Entities\KorrekturfaktortypEntity.cs" />
+    <Compile Include="Entities\ModernisierungEntity.cs" />
+    <Compile Include="Entities\ModernisierungsgradEntity.cs" />
+    <Compile Include="Entities\NHKostenEntity.cs" />
+    <Compile Include="Entities\StandardStufeEntity.cs" />
+    <Compile Include="Entities\TeilStandardEntiy.cs" />
+    <Compile Include="Entities\WaegungsanteilEntity.cs" />
+    <Compile Include="Helper\CommandsToAddEvent.cs" />
+    <Compile Include="Helper\CommandWrapper.cs" />
+    <Compile Include="Interfaces\IBilderService.cs" />
+    <Compile Include="Interfaces\IDatabaseService.cs" />
+    <Compile Include="Interfaces\IEstateService.cs" />
+    <Compile Include="Interfaces\IGebaeudeartService.cs" />
+    <Compile Include="Interfaces\IImmobilienService.cs" />
+    <Compile Include="Interfaces\IKorrfaktorService.cs" />
+    <Compile Include="Interfaces\IModernisierungService.cs" />
+    <Compile Include="Interfaces\IQueryModelDatabase.cs" />
+    <Compile Include="Interfaces\ISeedLoaderService.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\GebaeudeartModel.cs" />
+    <Compile Include="Models\GebaeudeBaseModel.cs" />
+    <Compile Include="Models\ImmobilieModel.cs" />
+    <Compile Include="Models\TeilStandard.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BilderService.cs" />
+    <Compile Include="Services\DatabaseService.cs" />
+    <Compile Include="Services\EstateService.cs" />
+    <Compile Include="Services\GebaeudeartService.cs" />
+    <Compile Include="Services\Helper\EntityBusinessObjectConverter.cs" />
+    <Compile Include="Services\ImmobilienService.cs" />
+    <Compile Include="Services\KorrfaktorService.cs" />
+    <Compile Include="Services\ModernisierungService.cs" />
+    <Compile Include="Services\QueryModelDatabase.cs" />
+    <Compile Include="Services\SeedLoaderService.cs" />
+    <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Services\SettingsServices\SettingsService.cs" />
+    <Compile Include="ViewModels\EstateListPageViewModel.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\DetailPageViewModel.cs" />
+    <Compile Include="ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="Views\Busy.xaml.cs">
+      <DependentUpon>Busy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DetailPage.xaml.cs">
+      <DependentUpon>DetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EstateDetailsPage.xaml.cs">
+      <DependentUpon>EstateDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EstateListPage.xaml.cs">
+      <DependentUpon>EstateListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Splash.xaml.cs">
+      <DependentUpon>Splash.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\ThumbUp.png" />
+    <Content Include="Help.htm" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles\Custom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\Busy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EstateDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EstateListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Splash.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+    <SDKReference Include="SQLite.UWP.2015, Version=3.16.2">
+      <Name>SQLite for Universal Windows Platform</Name>
+    </SDKReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

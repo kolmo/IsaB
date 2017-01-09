@@ -1,0 +1,68 @@
+﻿<Page
+    x:Class="IsaB.Views.EstateListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IsaB.Views"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="using:IsaB.Common"
+    xmlns:vm="using:IsaB.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <common:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
+        <common:StringToPlaceholderConverter x:Key="StringToPlaceholderConverter"/>
+        <DataTemplate x:Key="ImageOverlayLandingDataTemplate">
+            <Grid Background="#FF939598" Height="250" Width="250">
+                <Image Source="{Binding Bilddaten, Converter={StaticResource ByteArrayToImageSourceConverter}}"  Stretch="UniformToFill"/>
+                <StackPanel Orientation="Vertical"  
+                    Height="90" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding Ort, ConverterParameter=&lt;Ort?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
+                       Margin="10,3,0,0" Width="242" Height="62" 
+                       TextTrimming="WordEllipsis" TextWrapping="Wrap" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Strasse, ConverterParameter=&lt;Strasse?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
+                       Margin="10,2,0,0" Width="186" Height="14" 
+                       TextTrimming="WordEllipsis" HorizontalAlignment="Left" FontSize="9" Opacity="0.49"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
+    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!--  header  -->
+        <controls:PageHeader x:Name="pageHeader" Frame="{x:Bind Frame}"
+                             RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" Text="Immobilienliste">
+            <controls:PageHeader.PrimaryCommands>
+                <AppBarButton Click="AppBarButton_Click" Label="Neu" />
+                <AppBarButton  Label="Löschen" />
+            </controls:PageHeader.PrimaryCommands>
+            <controls:PageHeader.SecondaryCommands>
+                <AppBarButton  Label="Settings" />
+                <AppBarButton  Label="Privacy" />
+                <AppBarButton  Label="About" />
+            </controls:PageHeader.SecondaryCommands>
+        </controls:PageHeader>
+        <GridView 
+             x:Name="itemGridView"
+            AutomationProperties.AutomationId="ItemGridView"
+            AutomationProperties.Name="Grouped Items"
+            Padding="10"
+            ItemsSource="{Binding Path=AlleImmobilien}"
+            ItemTemplate="{StaticResource ImageOverlayLandingDataTemplate}"
+            RelativePanel.Below="pageHeader"
+            ItemClick="itemGridView_ItemClick"
+            SelectionMode="None"
+            IsSwipeEnabled="false"
+            IsItemClickEnabled="True" 
+            >
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid MaximumRowsOrColumns="2"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
+    </RelativePanel>
+</Page>
