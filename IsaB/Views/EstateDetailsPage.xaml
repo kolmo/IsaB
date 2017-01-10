@@ -8,17 +8,17 @@
     mc:Ignorable="d">
 
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid Background="#FF939598" 
+        <Grid Background="{StaticResource PicturePanelBackgroundBrush}" 
               RelativePanel.AlignBottomWithPanel="True"
               RelativePanel.AlignTopWithPanel="True"
               RelativePanel.AlignLeftWithPanel="True">
             <Image Source="{Binding Bilddaten, Converter={StaticResource ByteArrayToImageSourceConverter}}"  Stretch="UniformToFill"/>
-            <StackPanel Orientation="Vertical"  
+            <StackPanel Orientation="Vertical" Background="AliceBlue"
                     Height="90" VerticalAlignment="Bottom">
-                <TextBlock Text="{Binding Ort, ConverterParameter=&lt;Ort?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
+                <TextBlock Text="{Binding Estate.Ort, ConverterParameter=&lt;Ort?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
                        Margin="10,3,0,0" Width="242" Height="62" 
                        TextTrimming="WordEllipsis" TextWrapping="Wrap" HorizontalAlignment="Left"/>
-                <TextBlock Text="{Binding Strasse, ConverterParameter=&lt;Strasse?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
+                <TextBlock Text="{Binding Estate.Strasse, ConverterParameter=&lt;Strasse?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
                        Margin="10,2,0,0" Width="186" Height="14" 
                        TextTrimming="WordEllipsis" HorizontalAlignment="Left" FontSize="9" Opacity="0.49"/>
             </StackPanel>

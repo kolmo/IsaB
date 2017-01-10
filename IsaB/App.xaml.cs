@@ -17,6 +17,7 @@ using Windows.Storage;
 using IsaB.Interfaces.Services;
 using IsaB.Services;
 using IsaB.Interfaces;
+using IsaB.CommandStack;
 
 namespace IsaB
 {
@@ -51,9 +52,13 @@ namespace IsaB
             if (Container == null)
                 Container = new ServiceContainer();
             _dbName = Path.Combine(ApplicationData.Current.LocalFolder.Path, "ISaB.sqlite");
+            Container.Register<IBus, Bus>();
+            IBus bus = Container.GetInstance<IBus>();
+           
             Container.RegisterInstance<ISeedLoaderService>(new SeedLoaderService(_dbName));
             Container.Register<INavigable, MainPageViewModel>(typeof(MainPage).FullName);
             Container.Register<INavigable, EstateListPageViewModel>(typeof(EstateListPage).FullName);
+            Container.Register<INavigable, EstateDetailsPageViewModel>(typeof(EstateDetailsPage).FullName);
             Container.Register<IDatabaseService, DatabaseService>();
             Container.Register<IQueryModelDatabase, QueryModelDatabase>();
             Container.Register<IEstateService, EstateService>();

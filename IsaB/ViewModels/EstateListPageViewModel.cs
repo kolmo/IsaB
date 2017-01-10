@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
+using IsaB.CommandStack.Commands;
+using IsaB.CommandStack;
 
 namespace IsaB.ViewModels
 {
@@ -37,7 +39,7 @@ namespace IsaB.ViewModels
                 AusbauzustandId = 1,
                 ErzeugtAm = DateTime.Now
             };
-            //_immobilienService.AddNewImmobilie(immo);
+            CreateEstateCommand cmd = new CreateEstateCommand(immo);
         }
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {

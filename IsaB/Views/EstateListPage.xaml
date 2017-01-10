@@ -11,8 +11,6 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <common:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
-        <common:StringToPlaceholderConverter x:Key="StringToPlaceholderConverter"/>
         <DataTemplate x:Key="ImageOverlayLandingDataTemplate">
             <Grid Background="#FF939598" Height="250" Width="250">
                 <Image Source="{Binding Bilddaten, Converter={StaticResource ByteArrayToImageSourceConverter}}"  Stretch="UniformToFill"/>

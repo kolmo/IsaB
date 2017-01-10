@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Template10.Controls;
+using Template10.Services.NavigationService;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -38,13 +39,13 @@ namespace IsaB.Views
         {
             ContentDialog noWifiDialog = new ContentDialog()
             {
-                Title = "No wifi connection",
-                Content = "Check connection and try again",
-                PrimaryButtonText = "Ok",
-                SecondaryButtonText = "Cancel"
+                Title = "Neue Immobilie",
+                Content = "Eine neue Immobilie anlegen?",
+                PrimaryButtonText = "Ja",
+                SecondaryButtonText = "Nein"
             };
             ContentDialogResult result = await noWifiDialog.ShowAsync();
-            if (result== ContentDialogResult.Primary)
+            if (result== ContentDialogResult.Primary && _viewModel!= null)
             {
                 _viewModel.AddNewEstate();
                 await _viewModel.ReloadEstates();
@@ -55,7 +56,7 @@ namespace IsaB.Views
             ImmobilieEntity immo = e.ClickedItem as ImmobilieEntity;
             if (immo != null)
             {
-                //this.Frame.Navigate(typeof(ImmobilieEditPage), immo.ID);
+                App.Current.NavigationService.Navigate(typeof(Views.EstateDetailsPage), immo.ID);
             }
         }
     }

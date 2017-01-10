@@ -119,6 +119,16 @@
     <Compile Include="BusinessObjects\Modernisierungsgrad.cs" />
     <Compile Include="BusinessObjects\Normalherstellungskosten.cs" />
     <Compile Include="BusinessObjects\Waegungsanteil.cs" />
+    <Compile Include="CommandStack\Bus.cs" />
+    <Compile Include="CommandStack\Command.cs" />
+    <Compile Include="CommandStack\Commands\CreateEstateCommand.cs" />
+    <Compile Include="CommandStack\DomainEvent.cs" />
+    <Compile Include="CommandStack\IAmStartedBy.cs" />
+    <Compile Include="CommandStack\IBus.cs" />
+    <Compile Include="CommandStack\IDomainEvent.cs" />
+    <Compile Include="CommandStack\IHandles.cs" />
+    <Compile Include="CommandStack\Message.cs" />
+    <Compile Include="CommandStack\SagaBase.cs" />
     <Compile Include="Common\ByteArrayToImageSourceConverter.cs" />
     <Compile Include="Common\StringToPlaceholderConverter.cs" />
     <Compile Include="Entities\BaupreisindexEntity.cs" />
@@ -172,6 +182,7 @@
     <Compile Include="Services\SeedLoaderService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Services\SettingsServices\SettingsService.cs" />
+    <Compile Include="ViewModels\EstateDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\EstateListPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
@@ -267,7 +278,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CommandStack\Events\" />
+    <Folder Include="CommandStack\Sagas\" />
+  </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>

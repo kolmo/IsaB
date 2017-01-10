@@ -196,6 +196,10 @@ namespace IsaB.Entities
         /// Anlegedatum des Datensatzes
         /// </summary>
         public DateTime ErzeugtAm { get; set; }
+        /// <summary>
+        /// ID des Titelbildes
+        /// </summary>
+        public int? TitlePictureId { get; set; }
         #endregion
     }
 }
