@@ -1,48 +1,29 @@
-﻿using Microsoft.Practices.Unity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LightInject;
 
 namespace IsaB.Infrastructure.Impl
 {
     public class InMemoryBus : IBus
     {
-        public IUnityContainer Container {get; private set;}
-        public IEventStore EventStore { get; private set; }
+        public ServiceContainer Container {get; private set;}
 
-        private static IDictionary<Type, Type> registeredSagas = new Dictionary<Type, Type>();
-        private static IList<Type> registeredHandlers = new List<Type>();
+        private  IDictionary<Type, Type> registeredSagas = new Dictionary<Type, Type>();
+        private  IList<Type> registeredHandlers = new List<Type>();
 
-        public InMemoryBus(IUnityContainer container, IEventStore eventStore)
+        public InMemoryBus(ServiceContainer container)
         {
             if(container==null)
             {
                 throw new ArgumentNullException("container");
             }
-            if (eventStore == null)
-            {
-                throw new ArgumentNullException("eventStore");
-            }
             Container = container;
-            EventStore = eventStore;
         }
 
-        void IBus.RegisterSaga<T>()
+        void IBus.RegisterSaga<TStartMessage, TSaga>()
         {
-            Type sagaType = typeof(T);
-            if(sagaType.GetInterfaces().Where(i => i.Name.StartsWith(typeof(IAmStartedBy<>).Name)).Count() != 1)
-            {
-                throw new InvalidOperationException("The specified saga must implement the IAmStartedBy<T> interface.");
-            }
-            var messageType = sagaType.
-                GetInterfaces().
-                Where(i => i.Name.StartsWith(typeof(IAmStartedBy<>).Name)).
-                First().
-                GenericTypeArguments.
-                First();
-            registeredSagas.Add(messageType, sagaType);
+            registeredSagas.Add(typeof(TStartMessage), typeof(TSaga));
         }
 
         void IBus.RegisterHandler<T>()
@@ -59,47 +40,44 @@ namespace IsaB.Infrastructure.Impl
 
         private void DeliverMessageToRegisteredHandlers<T>(T message)
         {
-            Type messageType = message.GetType();
-            var openInterface = typeof(IHandleMessage<>);
-            var closedInterface = openInterface.MakeGenericType(messageType);
-            var handlersToNotify = from h in registeredHandlers
-                                 where closedInterface.IsAssignableFrom(h)
-                                 select h;
-            foreach(var h in handlersToNotify)
-            {
-                dynamic handlerInstance = Container.Resolve(h);
-                handlerInstance.Handle((dynamic)message);
-            }
+            //Type messageType = message.GetType();
+            //var openInterface = typeof(IHandleMessage<>);
+            //var closedInterface = openInterface.MakeGenericType(messageType);
+            //var handlersToNotify = from h in registeredHandlers
+            //                     where closedInterface.IsAssignableFrom(h)
+            //                     select h;
+            //foreach(var h in handlersToNotify)
+            //{
+            //    dynamic handlerInstance = Container.Resolve(h);
+            //    handlerInstance.Handle((dynamic)message);
+            //}
         }
 
-        private void BootRegisteredSagas<T>(T message)
+        private void BootRegisteredSagas<T>(T message) where T: Message
         {
-            Type messageType = message.GetType();
-            var openInterface = typeof(IAmStartedBy<>);
-            var closedInterface = openInterface.MakeGenericType(messageType);
-            var sagasToStartup = from s in registeredSagas.Values
-                                 where closedInterface.IsAssignableFrom(s)
-                                 select s;
-            foreach (var s in sagasToStartup)
+            // Check if the message can start one of the registered sagas
+            if (registeredSagas.ContainsKey(typeof(T)))
             {
-                dynamic sagaInstance = Container.Resolve(s);
-                sagaInstance.Handle((dynamic)message);
+                // Start the saga creating a new instance of the type
+                var typeOfSaga = registeredSagas[typeof(T)];
+                var instance = (IAmStartedBy<T>)Container.GetInstance(typeOfSaga);
+                instance.Handle(message);
             }
         }
 
         private void DeliverMessageToAlreadyRunningSagas<T>(T message)
         {
-            Type messageType = message.GetType();
-            var openInterface = typeof(IHandleMessage<>);
-            var closedInterface = openInterface.MakeGenericType(messageType);
-            var sagasToNotify = from s in registeredSagas.Values
-                                 where closedInterface.IsAssignableFrom(s)
-                                 select s;
-            foreach (var s in sagasToNotify)
-            {
-                dynamic sagaInstance = Container.Resolve(s);
-                sagaInstance.Handle((dynamic)message);
-            }
+            //Type messageType = message.GetType();
+            //var openInterface = typeof(IHandleMessage<>);
+            //var closedInterface = openInterface.MakeGenericType(messageType);
+            //var sagasToNotify = from s in registeredSagas.Values
+            //                     where closedInterface.IsAssignableFrom(s)
+            //                     select s;
+            //foreach (var s in sagasToNotify)
+            //{
+            //    dynamic sagaInstance = Container.Resolve(s);
+            //    sagaInstance.Handle((dynamic)message);
+            //}
         }
 
         void IBus.Send<T>(T command)
@@ -107,10 +85,10 @@ namespace IsaB.Infrastructure.Impl
             this._Send(command);
         }
 
-        void IBus.RaiseEvent<T>(T @event)
-        {
-            EventStore.Save(@event);
-            this._Send(@event);
-        }
+        //void IBus.RaiseEvent<T>(T @event)
+        //{
+        //    EventStore.Save(@event);
+        //    this._Send(@event);
+        //}
     }
 }

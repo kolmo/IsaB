@@ -3,9 +3,7 @@ using System.Threading.Tasks;
 using IsaB.Services.SettingsServices;
 using Windows.ApplicationModel.Activation;
 using Template10.Controls;
-using Template10.Common;
 using System;
-using System.Linq;
 using Windows.UI.Xaml.Data;
 using Template10.Services.NavigationService;
 using Windows.UI.Xaml.Controls;
@@ -14,10 +12,14 @@ using IsaB.ViewModels;
 using LightInject;
 using System.IO;
 using Windows.Storage;
-using IsaB.Interfaces.Services;
-using IsaB.Services;
 using IsaB.Interfaces;
-using IsaB.CommandStack;
+using IsaB.QueryStack;
+using IsaB.CommandStack.Sagas;
+using IsaB.CommandStack.Commands;
+using IsaB.QueryStack.Services;
+using IsaB.Infrastructure;
+using IsaB.Infrastructure.Impl;
+using IsaB.Infrastructure.SQLite;
 
 namespace IsaB
 {
@@ -52,21 +54,20 @@ namespace IsaB
             if (Container == null)
                 Container = new ServiceContainer();
             _dbName = Path.Combine(ApplicationData.Current.LocalFolder.Path, "ISaB.sqlite");
-            Container.Register<IBus, Bus>();
+            Container.RegisterInstance<IBus>(new InMemoryBus(Container));
             IBus bus = Container.GetInstance<IBus>();
-           
-            Container.RegisterInstance<ISeedLoaderService>(new SeedLoaderService(_dbName));
+            ConfigureRegistryBoundedContext(bus);
+            Container.RegisterInstance<IDatabaseService>(new DatabaseService(_dbName));
+            Container.RegisterInstance<IRepository>(new SQLiteRepository(_dbName));
             Container.Register<INavigable, MainPageViewModel>(typeof(MainPage).FullName);
             Container.Register<INavigable, EstateListPageViewModel>(typeof(EstateListPage).FullName);
             Container.Register<INavigable, EstateDetailsPageViewModel>(typeof(EstateDetailsPage).FullName);
-            Container.Register<IDatabaseService, DatabaseService>();
-            Container.Register<IQueryModelDatabase, QueryModelDatabase>();
+            Container.Register<INavigable, EstateAddressEditPageViewModel>(typeof(EstateAddressEditPage).FullName);
+            Container.Register<INavigable, EstateLandsizeEditPageViewModel>(typeof(EstateLandsizeEditPage).FullName);
+            Container.Register<INavigable, PictureEditPageViewModel>(typeof(PictureEditPage).FullName);
+            Container.Register<IQueryModelDatabase, QueryStack.QueryModelDatabase>(new PerContainerLifetime());
             Container.Register<IEstateService, EstateService>();
-            Container.Register<IBilderService, BilderService>();
-            Container.Register<IImmobilienService, ImmobilienService>();
-            Container.Register<IGebaeudeartService, GebaeudeartService>();
-            Container.Register<IKorrfaktorService, KorrfaktorService>();
-            Container.Register<IModernisierungService, ModernisierungService>();
+            Container.Register<IStaticsService, StaticsService>(new PerContainerLifetime());
             IDatabaseService dataBaseService = Container.GetInstance<IDatabaseService>();
             dataBaseService.InitializeDataSource();
 
@@ -95,7 +96,22 @@ namespace IsaB
         }
         public override INavigable ResolveForPage(Page page, NavigationService navigationService)
         {
-            return Container.GetInstance<INavigable>(page.GetType().FullName);
+            INavigable viewModel = Container.GetInstance<INavigable>(page.GetType().FullName);
+            return viewModel;
+        }
+        private void ConfigureRegistryBoundedContext(IBus bus)
+        {
+            //Sagas
+            bus.RegisterSaga< CreateNewEstateCommand, CreateNewEstateSaga>();
+            bus.RegisterSaga<SaveEstateAddressCommand, SaveEstateAddressSaga>();
+            bus.RegisterSaga<SaveEstateLandsizeCommand, SaveEstateLandsizeSaga>();
+            bus.RegisterSaga<SavePictureCommand, SavePictureSaga>();
+            bus.RegisterSaga<DeletePictureCommand, DeletePictureSaga>();
+            Container.Register(typeof(CreateNewEstateSaga));
+            Container.Register(typeof(SaveEstateAddressSaga));
+            Container.Register(typeof(SaveEstateLandsizeSaga));
+            Container.Register(typeof(SavePictureSaga));
+            Container.Register(typeof(DeletePictureSaga));
         }
     }
 }

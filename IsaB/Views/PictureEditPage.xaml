@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="IsaB.Views.PictureEditPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IsaB.Views"
+   xmlns:controls="using:Template10.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <controls:PageHeader x:Name="pageHeader" Frame="{x:Bind Frame}"
+                             RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" Text="Bild - Details">
+            <controls:PageHeader.PrimaryCommands>
+                <AppBarButton Label="Bild löschen" Icon="Delete" Command="{Binding Path=DeletePictureCommand}" />
+            </controls:PageHeader.PrimaryCommands>
+        </controls:PageHeader>
+        <Image RelativePanel.Below="pageHeader" 
+               RelativePanel.AlignBottomWithPanel="True"
+               RelativePanel.AlignLeftWithPanel="True"
+               RelativePanel.AlignRightWithPanel="True"
+               Stretch="Uniform"
+               Source="{Binding Path=Picture.Bilddaten, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
+    </RelativePanel>
+</Page>

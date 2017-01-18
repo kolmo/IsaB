@@ -28,12 +28,11 @@ namespace IsaB.Views
     /// </summary>
     public sealed partial class EstateListPage : Page
     {
-        EstateListPageViewModel _viewModel;
         public EstateListPage()
         {
             this.InitializeComponent();
-            Loaded += (s, a) => { _viewModel = DataContext as EstateListPageViewModel; };
         }
+      
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
@@ -45,10 +44,11 @@ namespace IsaB.Views
                 SecondaryButtonText = "Nein"
             };
             ContentDialogResult result = await noWifiDialog.ShowAsync();
-            if (result== ContentDialogResult.Primary && _viewModel!= null)
+            EstateListPageViewModel viewModel = DataContext as EstateListPageViewModel;
+            if (result== ContentDialogResult.Primary && viewModel!= null)
             {
-                _viewModel.AddNewEstate();
-                await _viewModel.ReloadEstates();
+                viewModel.AddNewEstate();
+                await viewModel.ReloadEstates();
             }
         }
         private void itemGridView_ItemClick(object sender, ItemClickEventArgs e)

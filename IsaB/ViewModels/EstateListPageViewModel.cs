@@ -8,17 +8,19 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
+using IsaB.Infrastructure;
 using IsaB.CommandStack.Commands;
-using IsaB.CommandStack;
 
 namespace IsaB.ViewModels
 {
     public class EstateListPageViewModel : ViewModelBase
     {
         private readonly IEstateService _immobilienService;
-        public EstateListPageViewModel(IEstateService immoService )
+        private readonly IBus _bus;
+        public EstateListPageViewModel(IEstateService immoService , IBus bus)
         {
             _immobilienService = immoService;
+            _bus = bus;
         }
         private ObservableCollection<ImmobilieEntity> _alleImmobilien;
 
@@ -32,14 +34,13 @@ namespace IsaB.ViewModels
         }
         public void AddNewEstate()
         {
-            Immobilie immo =  new Immobilie
+            CreateNewEstateCommand cmd = new CreateNewEstateCommand()
             {
-                GebaeudeartId = 1,
-                BauweiseId = 1,
-                AusbauzustandId = 1,
-                ErzeugtAm = DateTime.Now
+                BuildingKind = 1,
+                NewCity = "Schönaich",
+                NewStreet = "In den Bergen 3"
             };
-            CreateEstateCommand cmd = new CreateEstateCommand(immo);
+            _bus.Send(cmd);
         }
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {

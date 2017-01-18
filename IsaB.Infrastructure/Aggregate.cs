@@ -8,11 +8,11 @@ namespace IsaB.Infrastructure
 {
     public abstract class Aggregate : IAggregate
     {
-        public Guid Id { get; protected set; }
+        public int Id { get; protected set; }
 
         private IList<DomainEvent> uncommittedEvents = new List<DomainEvent>();
 
-        Guid IAggregate.Id 
+        int IAggregate.Id 
         { 
             get
             {

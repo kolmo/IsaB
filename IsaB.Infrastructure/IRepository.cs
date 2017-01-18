@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace IsaB.Infrastructure
 {
-    public interface IRepository 
+    public interface IRepository
     {
-        T GetById<T>(Guid id) where T : IAggregate;
-        void Save<T>(T item) where T : IAggregate;
+        T GetById<T>(int id) where T : IEntity;
+        void Save<T>(T item) where T : IEntity;
+        void Delete<T>(T item) where T : IEntity;
     }
 }

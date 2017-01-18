@@ -119,82 +119,48 @@
     <Compile Include="BusinessObjects\Modernisierungsgrad.cs" />
     <Compile Include="BusinessObjects\Normalherstellungskosten.cs" />
     <Compile Include="BusinessObjects\Waegungsanteil.cs" />
-    <Compile Include="CommandStack\Bus.cs" />
-    <Compile Include="CommandStack\Command.cs" />
-    <Compile Include="CommandStack\Commands\CreateEstateCommand.cs" />
-    <Compile Include="CommandStack\DomainEvent.cs" />
-    <Compile Include="CommandStack\IAmStartedBy.cs" />
-    <Compile Include="CommandStack\IBus.cs" />
-    <Compile Include="CommandStack\IDomainEvent.cs" />
-    <Compile Include="CommandStack\IHandles.cs" />
-    <Compile Include="CommandStack\Message.cs" />
-    <Compile Include="CommandStack\SagaBase.cs" />
+    <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\ByteArrayToImageSourceConverter.cs" />
+    <Compile Include="Common\DecimalToStringConverter.cs" />
+    <Compile Include="Common\DoubleToSolidColorBrushConverter.cs" />
+    <Compile Include="Common\FloatToStringConverter.cs" />
     <Compile Include="Common\StringToPlaceholderConverter.cs" />
-    <Compile Include="Entities\BaupreisindexEntity.cs" />
-    <Compile Include="Entities\GebaeudeartEntity.cs" />
-    <Compile Include="Entities\GebaeudeteilEntity.cs" />
-    <Compile Include="Entities\GebArtBaupreisindexEntity.cs" />
-    <Compile Include="Entities\GebArtStandardEntity.cs" />
-    <Compile Include="Entities\GebArtXAusbauEntity.cs" />
-    <Compile Include="Entities\GebArtXBauweiseEntity.cs" />
-    <Compile Include="Entities\GebAusbauzustandEntity.cs" />
-    <Compile Include="Entities\GebBauweiseEntity.cs" />
-    <Compile Include="Entities\GesamtnutzungsdauerEntity.cs" />
-    <Compile Include="Entities\ImmobilieBildEntity.cs" />
-    <Compile Include="Entities\ImmobilieEntity.cs" />
-    <Compile Include="Entities\ImmobilieKorrFaktorEntity.cs" />
-    <Compile Include="Entities\ImmobilieModernisierungEntiy.cs" />
-    <Compile Include="Entities\KorrekturfaktorEntity.cs" />
-    <Compile Include="Entities\KorrekturfaktortypEntity.cs" />
-    <Compile Include="Entities\ModernisierungEntity.cs" />
-    <Compile Include="Entities\ModernisierungsgradEntity.cs" />
-    <Compile Include="Entities\NHKostenEntity.cs" />
-    <Compile Include="Entities\StandardStufeEntity.cs" />
-    <Compile Include="Entities\TeilStandardEntiy.cs" />
-    <Compile Include="Entities\WaegungsanteilEntity.cs" />
     <Compile Include="Helper\CommandsToAddEvent.cs" />
     <Compile Include="Helper\CommandWrapper.cs" />
-    <Compile Include="Interfaces\IBilderService.cs" />
-    <Compile Include="Interfaces\IDatabaseService.cs" />
-    <Compile Include="Interfaces\IEstateService.cs" />
-    <Compile Include="Interfaces\IGebaeudeartService.cs" />
-    <Compile Include="Interfaces\IImmobilienService.cs" />
-    <Compile Include="Interfaces\IKorrfaktorService.cs" />
-    <Compile Include="Interfaces\IModernisierungService.cs" />
-    <Compile Include="Interfaces\IQueryModelDatabase.cs" />
-    <Compile Include="Interfaces\ISeedLoaderService.cs" />
     <Compile Include="Models\BaseModel.cs" />
-    <Compile Include="Models\GebaeudeartModel.cs" />
     <Compile Include="Models\GebaeudeBaseModel.cs" />
     <Compile Include="Models\ImmobilieModel.cs" />
     <Compile Include="Models\TeilStandard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BilderService.cs" />
-    <Compile Include="Services\DatabaseService.cs" />
-    <Compile Include="Services\EstateService.cs" />
-    <Compile Include="Services\GebaeudeartService.cs" />
-    <Compile Include="Services\Helper\EntityBusinessObjectConverter.cs" />
-    <Compile Include="Services\ImmobilienService.cs" />
-    <Compile Include="Services\KorrfaktorService.cs" />
-    <Compile Include="Services\ModernisierungService.cs" />
-    <Compile Include="Services\QueryModelDatabase.cs" />
-    <Compile Include="Services\SeedLoaderService.cs" />
-    <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Services\SettingsServices\SettingsService.cs" />
+    <Compile Include="ViewModels\EstateAddressEditPageViewModel.cs" />
     <Compile Include="ViewModels\EstateDetailsPageViewModel.cs" />
+    <Compile Include="ViewModels\EstateLandsizeEditPageViewModel.cs" />
     <Compile Include="ViewModels\EstateListPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
+    <Compile Include="ViewModels\PictureEditPageViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="Views\PictureEditPage.xaml.cs">
+      <DependentUpon>PictureEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PictureGalleryPage.xaml.cs">
+      <DependentUpon>PictureGalleryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Busy.xaml.cs">
       <DependentUpon>Busy.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EstateAddressEditPage.xaml.cs">
+      <DependentUpon>EstateAddressEditPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EstateDetailsPage.xaml.cs">
       <DependentUpon>EstateDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EstateLandsizeEditPage.xaml.cs">
+      <DependentUpon>EstateLandsizeEditPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EstateListPage.xaml.cs">
       <DependentUpon>EstateListPage.xaml</DependentUpon>
@@ -245,6 +211,14 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Views\PictureEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PictureGalleryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Busy.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -253,7 +227,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EstateAddressEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EstateDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EstateLandsizeEditPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,10 +260,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CommandStack\Events\" />
-    <Folder Include="CommandStack\Sagas\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
@@ -289,6 +268,28 @@
     <SDKReference Include="SQLite.UWP.2015, Version=3.16.2">
       <Name>SQLite for Universal Windows Platform</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IsaB.CommandStack\IsaB.CommandStack.csproj">
+      <Project>{d57ad7f7-77ac-41ca-83bc-138b070b5a90}</Project>
+      <Name>IsaB.CommandStack</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsaB.Entities\IsaB.Entities.csproj">
+      <Project>{381d6b2d-002d-42f3-8dc0-9be34407ada2}</Project>
+      <Name>IsaB.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsaB.Infrastructure.SQLite\IsaB.Infrastructure.SQLite.csproj">
+      <Project>{c399a4ef-9f1f-4ba3-9e32-488184d67e02}</Project>
+      <Name>IsaB.Infrastructure.SQLite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsaB.Infrastructure\IsaB.Infrastructure.csproj">
+      <Project>{0de36ba0-e802-4286-a67b-f64a2fc67015}</Project>
+      <Name>IsaB.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsaB.QueryStack\IsaB.QueryStack.csproj">
+      <Project>{965e43f4-654e-4f3a-b4b9-87a24a86da87}</Project>
+      <Name>IsaB.QueryStack</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

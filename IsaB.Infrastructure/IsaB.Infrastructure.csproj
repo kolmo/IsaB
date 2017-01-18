@@ -113,12 +113,14 @@
     <Compile Include="IAggregate.cs" />
     <Compile Include="IAmStartedBy.cs" />
     <Compile Include="IBus.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="IEventStore.cs" />
     <Compile Include="IHandleMessage.cs" />
     <Compile Include="Impl\InMemoryBus.cs" />
-    <Compile Include="Impl\InMemoryRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Saga.cs" />
     <EmbeddedResource Include="Properties\IsaB.Infrastructure.rd.xml" />
   </ItemGroup>
   <ItemGroup />

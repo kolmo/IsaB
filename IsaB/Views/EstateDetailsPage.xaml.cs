@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using IsaB.Entities;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,6 +13,15 @@ namespace IsaB.Views
         public EstateDetailsPage()
         {
             this.InitializeComponent();
+        }
+
+        private void itemListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ImmobilieBildEntity pic = e.ClickedItem as ImmobilieBildEntity;
+            if (pic != null)
+            {
+                Template10.Common.BootStrapper.Current.NavigationService.Navigate(typeof(Views.PictureEditPage), pic.ID);
+            }
         }
     }
 }

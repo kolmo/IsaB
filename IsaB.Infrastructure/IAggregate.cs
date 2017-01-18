@@ -8,7 +8,7 @@ namespace IsaB.Infrastructure
 { 
     public interface IAggregate
     {
-        Guid Id { get; }
+        int Id { get; }
 
         bool HasPendingChanges { get; }
 

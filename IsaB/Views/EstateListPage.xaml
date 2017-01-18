@@ -13,7 +13,7 @@
     <Page.Resources>
         <DataTemplate x:Key="ImageOverlayLandingDataTemplate">
             <Grid Background="#FF939598" Height="250" Width="250">
-                <Image Source="{Binding Bilddaten, Converter={StaticResource ByteArrayToImageSourceConverter}}"  Stretch="UniformToFill"/>
+                <!--<Image Source="{Binding Bilddaten, Converter={StaticResource ByteArrayToImageSourceConverter}}"  Stretch="UniformToFill"/>-->
                 <StackPanel Orientation="Vertical"  
                     Height="90" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding Ort, ConverterParameter=&lt;Ort?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
@@ -34,7 +34,7 @@
                              RelativePanel.AlignRightWithPanel="True"
                              RelativePanel.AlignTopWithPanel="True" Text="Immobilienliste">
             <controls:PageHeader.PrimaryCommands>
-                <AppBarButton Click="AppBarButton_Click" Label="Neu" />
+                <AppBarButton Click="AppBarButton_Click" Label="Neu" Icon="Add" />
                 <AppBarButton  Label="Löschen" />
             </controls:PageHeader.PrimaryCommands>
             <controls:PageHeader.SecondaryCommands>
