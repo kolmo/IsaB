@@ -14,5 +14,7 @@ namespace IsaB.Interfaces
         ImmobilieEntity GetEstate(int id);
         IList<ImmobilieBildEntity> GetEstatePics(int estateID);
         ImmobilieBildEntity GetEstatePic(int picID);
+        IQueryable<PartStandardEntity> PartStandards { get; }
+        IQueryable<EstateStandardLevelPropertyEntity> EstateStandardLevelPropertyEntities { get; }
     }
 }

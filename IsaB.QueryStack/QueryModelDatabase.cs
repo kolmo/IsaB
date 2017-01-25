@@ -16,11 +16,19 @@ namespace IsaB.QueryStack
             _buildingKinds = _context.Table<GebaeudeartEntity>();
             _modernizations = _context.Table<ImmobilieModernisierungEntity>();
             _pictures = _context.Table<ImmobilieBildEntity>();
+            _buildingParts = _context.Table<GebaeudeteilEntity>();
+            _partStandards = _context.Table<PartStandardEntity>();
+            _standardLevelProperties = _context.Table<StandardLevelPropertyEntity>();
+            _estateStandardLevelPropertyEntities = _context.Table<EstateStandardLevelPropertyEntity>();
         }
         private readonly TableQuery<ImmobilieEntity> _estates = null;
         private readonly TableQuery<GebaeudeartEntity> _buildingKinds = null;
         private readonly TableQuery<ImmobilieModernisierungEntity> _modernizations = null;
         private readonly TableQuery<ImmobilieBildEntity> _pictures = null;
+        private readonly TableQuery<GebaeudeteilEntity> _buildingParts = null;
+        private readonly TableQuery<PartStandardEntity> _partStandards = null;
+        private readonly TableQuery<StandardLevelPropertyEntity> _standardLevelProperties = null;
+        private readonly TableQuery<EstateStandardLevelPropertyEntity> _estateStandardLevelPropertyEntities = null;
         public TableQuery<ImmobilieEntity> Estates
         {
             get { return this._estates; }
@@ -47,6 +55,38 @@ namespace IsaB.QueryStack
             get
             {
                 return _pictures;
+            }
+        }
+
+        public TableQuery<PartStandardEntity> PartStandards
+        {
+            get
+            {
+                return _partStandards;
+            }
+        }
+
+        public TableQuery<GebaeudeteilEntity> BuildingParts
+        {
+            get
+            {
+                return _buildingParts;
+            }
+        }
+
+        public TableQuery<StandardLevelPropertyEntity> StandardLevelProperties
+        {
+            get
+            {
+                return _standardLevelProperties;
+            }
+        }
+
+        public TableQuery<EstateStandardLevelPropertyEntity> EstateStandardLevelProperties
+        {
+            get
+            {
+                return _estateStandardLevelPropertyEntities;
             }
         }
     }

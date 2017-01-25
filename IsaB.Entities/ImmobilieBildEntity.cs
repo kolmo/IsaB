@@ -3,7 +3,7 @@
 namespace IsaB.Entities
 {
     [SQLite.Table("ImmobilieBild")]
-    public class ImmobilieBildEntity : Entity
+    public class ImmobilieBildEntity : IsaB.Base.Entity
     {
         #region Factory
         public class Factory

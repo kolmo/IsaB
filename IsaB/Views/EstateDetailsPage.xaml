@@ -11,12 +11,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Page.Resources>
-        <converter:BooleanToVisibilityConverter x:Key="b2vc"/>
         <converter:DoubleToSolidColorBrushConverter x:Key="d2sc"/>
         <converter:DecimalToStringConverter x:Key="MoneyDecimalToStringConverter" Unit="€" />
         <converter:DecimalToStringConverter x:Key="AreaDecimalToStringConverter" Unit="qm" FractionDigits="0" />
         <!-- Auflistung von Elementen, die von dieser Seite angezeigt werden -->
         <CollectionViewSource x:Name="itemsViewSource" Source="{Binding Pictures}"/>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
     </Page.Resources>
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:PageHeader x:Name="pageHeader" Frame="{x:Bind Frame}"
@@ -27,41 +29,64 @@
                 <AppBarButton Label="Foto aufnehmen" Icon="Camera" Command="{Binding Path=TakePictureCommand}" />
             </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
-        <Grid Name="pictureAddressGrid" Background="{StaticResource PicturePanelBackgroundBrush}" 
-              RelativePanel.AlignBottomWithPanel="True"
+        <Image Name="titlePicture" Width="100" MaxHeight="500"
+                Stretch="UniformToFill" Source="{Binding Path=TitlePicture, Converter={StaticResource ByteArrayToImageSourceConverter}}"
               RelativePanel.Below="pageHeader"
-              RelativePanel.AlignLeftWithPanel="True">
-            <Image Source="{Binding TitlePicture, Converter={StaticResource ByteArrayToImageSourceConverter}}"  Stretch="UniformToFill"/>
-            <StackPanel Orientation="Vertical" Background="AliceBlue" 
-                    Height="90" VerticalAlignment="Bottom">
-                <Interactivity:Interaction.Behaviors>
-                    <Behaviors:EventTriggerBehaviorBase EventName="Tapped">
-                        <Behaviors:NavToPageAction Frame="{x:Bind Frame}" 
+              RelativePanel.AlignLeftWithPanel="True"
+                   />
+        <StackPanel Name="addressPanel"
+                        RelativePanel.Below="titlePicture"
+                        RelativePanel.AlignLeftWith="titlePicture"
+                        RelativePanel.AlignRightWith="titlePicture"
+                        RelativePanel.AlignBottomWithPanel="True"
+                        Orientation="Vertical" Background="AliceBlue" 
+                    Height="90">
+            <Interactivity:Interaction.Behaviors>
+                <Behaviors:EventTriggerBehaviorBase EventName="Tapped">
+                    <Behaviors:NavToPageAction Frame="{x:Bind Frame}" 
                             Page="IsaB.Views.EstateAddressEditPage"
                             Parameter="{Binding Path=Estate.ID}"/>
-                    </Behaviors:EventTriggerBehaviorBase>
-                </Interactivity:Interaction.Behaviors>
-                <TextBlock Text="{Binding Estate.Ort, ConverterParameter=&lt;Ort?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
-                       Margin="10,3,0,0" Width="242" Height="62" 
+                </Behaviors:EventTriggerBehaviorBase>
+            </Interactivity:Interaction.Behaviors>
+            <TextBlock Text="{Binding Estate.Ort, ConverterParameter=&lt;Ort?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
+                       Margin="10,3,0,0" 
                        TextTrimming="WordEllipsis" TextWrapping="Wrap" HorizontalAlignment="Left"/>
-                <TextBlock Text="{Binding Estate.Strasse, ConverterParameter=&lt;Strasse?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
-                       Margin="10,2,0,0" Width="186" Height="14" 
+            <TextBlock Text="{Binding Estate.Strasse, ConverterParameter=&lt;Strasse?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
+                       Margin="10,2,0,0" 
                        TextTrimming="WordEllipsis" HorizontalAlignment="Left" FontSize="9" Opacity="0.49"/>
-            </StackPanel>
-        </Grid>
-        <StackPanel 
-             RelativePanel.Below="pageHeader"
-            RelativePanel.RightOf="pictureAddressGrid"
-              RelativePanel.AlignBottomWithPanel="True">
-            <TextBox Text="{Binding Estate.Verkaufspreis, Converter={StaticResource MoneyDecimalToStringConverter}}"
-                     PlaceholderText="Verkaufspreis?"
+        </StackPanel>
+
+        <TextBlock Name="txtVK"
+                RelativePanel.Below="pageHeader"
+                RelativePanel.RightOf="titlePicture"
+                Text="{Binding Estate.Verkaufspreis, Converter={StaticResource MoneyDecimalToStringConverter}, ConverterParameter='Verkaufspreis?'}"
                         />
-            <TextBox Text="{Binding Estate.VorlSachwert, Converter={StaticResource MoneyDecimalToStringConverter}}"
-                     PlaceholderText="Vorläufiger Sachwert?"
+        <TextBlock Name="txtNHK"
+                     RelativePanel.Below="txtVK"
+                     RelativePanel.RightOf="titlePicture"
+                Text="{Binding Estate.VorlSachwert, Converter={StaticResource MoneyDecimalToStringConverter}, ConverterParameter='Vorläufiger Sachwert?'}"
                         />
-            <TextBlock Margin="0,20" Text="{Binding BuildingKind}"/>
-            <Slider Foreground="{Binding Path=Value, RelativeSource={RelativeSource Self}, Converter={StaticResource d2sc}}" />
-            <TextBlock Text="{Binding Estate.Grundstuecksflaeche, Converter={StaticResource AreaDecimalToStringConverter}, ConverterParameter='Grundstückfläche?'}"
+        <TextBlock Name="txtBuildingKind"
+                       RelativePanel.Below="txtNHK"
+                       RelativePanel.RightOf="titlePicture"
+                       Text="{Binding BuildingKind}"/>
+        <Slider Name="slStandard"
+                    RelativePanel.Below="txtBuildingKind"
+                    RelativePanel.RightOf="titlePicture"
+                    RelativePanel.AlignRightWithPanel="True"
+                Foreground="{Binding Path=Value, RelativeSource={RelativeSource Self}, Converter={StaticResource d2sc}}">
+            <Interactivity:Interaction.Behaviors>
+                <Behaviors:EventTriggerBehaviorBase EventName="Tapped">
+                    <Behaviors:NavToPageAction Frame="{x:Bind Frame}" 
+                            Page="IsaB.Views.StandardOverviewPage"
+                            Parameter="{Binding Path=Estate.ID}"/>
+                </Behaviors:EventTriggerBehaviorBase>
+            </Interactivity:Interaction.Behaviors>
+        </Slider>
+        <TextBlock Name="txtAreaSize"
+                       RelativePanel.Below="slStandard"
+                       RelativePanel.RightOf="titlePicture"
+                Text="{Binding Estate.Grundstuecksflaeche, Converter={StaticResource AreaDecimalToStringConverter}, ConverterParameter='Grundstückfläche?'}"
                       >
                  <Interactivity:Interaction.Behaviors>
                     <Behaviors:EventTriggerBehaviorBase EventName="Tapped">
@@ -70,41 +95,81 @@
                             Parameter="{Binding Path=Estate.ID}"/>
                     </Behaviors:EventTriggerBehaviorBase>
                 </Interactivity:Interaction.Behaviors>
-            </TextBlock>
-            <TextBlock Margin="0,20" Text="{Binding Estate.Baujahr, ConverterParameter=Baujahr?, Converter={StaticResource StringToPlaceholderConverter}}"/>
-            <TextBlock Margin="0,20" Text="{Binding Path=HasModernizations}"/>
-            <GridView Margin="0,20"
-			          x:Name="itemListView"
+        </TextBlock>
+        <TextBlock Name="txtLivingSpace"
+                       RelativePanel.Below="txtAreaSize"
+                       RelativePanel.RightOf="titlePicture"
+                Text="{Binding Estate.Bruttogrundflaeche, Converter={StaticResource AreaDecimalToStringConverter}, ConverterParameter='Wohnfläche?'}"
+                      >
+                 <Interactivity:Interaction.Behaviors>
+                    <Behaviors:EventTriggerBehaviorBase EventName="Tapped">
+                        <Behaviors:NavToPageAction Frame="{x:Bind Frame}" 
+                            Page="IsaB.Views.EstateLandsizeEditPage"
+                            Parameter="{Binding Path=Estate.ID}"/>
+                    </Behaviors:EventTriggerBehaviorBase>
+                </Interactivity:Interaction.Behaviors>
+        </TextBlock>
+        <TextBlock Name="txtBaujahr"
+                       RelativePanel.Below="txtLivingSpace"
+                       RelativePanel.RightOf="titlePicture"
+                Text="{Binding Estate.Baujahr, ConverterParameter=Baujahr?, Converter={StaticResource StringToPlaceholderConverter}}"/>
+        <TextBlock Name="txtHasModbelernizations"
+                       RelativePanel.Below="txtBaujahr"
+                       RelativePanel.RightOf="titlePicture"
+                       Text="{Binding Path=HasModernizations}"/>
+        <TextBlock Name="picListTitle"
+                   RelativePanel.Above="itemListView"
+                   RelativePanel.AlignLeftWith="itemListView"
+                   Text="Bilder"
+                   Margin="0"
+                   FontSize="{ThemeResource HubSectionHeaderThemeFontSize}"
+                   />
+        <TextBlock Name="picListMore"
+                   RelativePanel.Above="itemListView"
+                   RelativePanel.AlignRightWith="itemListView"
+                   Text="Mehr anzeigen >"
+                   Margin="0"
+                   FontSize="{ThemeResource HubSectionHeaderSeeMoreThemeFontSize}"
+                   >
+             <Interactivity:Interaction.Behaviors>
+                    <Behaviors:EventTriggerBehaviorBase EventName="Tapped">
+                        <Behaviors:NavToPageAction Frame="{x:Bind Frame}" 
+                            Page="IsaB.Views.PictureGalleryPage"
+                            Parameter="{Binding Path=Estate.ID}"/>
+                    </Behaviors:EventTriggerBehaviorBase>
+                </Interactivity:Interaction.Behaviors>
+        </TextBlock>
+        <GridView x:Name="itemListView"
+                      RelativePanel.RightOf="addressPanel"
+                      RelativePanel.AlignTopWith="addressPanel"
+                  RelativePanel.AlignBottomWith="addressPanel"
+                      RelativePanel.AlignRightWithPanel="True"
 			          TabIndex="1"
 			          ItemsSource="{Binding Source={StaticResource itemsViewSource}}" 
-                      BorderThickness="1" 
-                      BorderBrush="Black"
                       IsItemClickEnabled="True"
                       ItemClick="itemListView_ItemClick"
 			>
-                <GridView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="50" Width="50">
-                            <Image Source="{Binding Bilddaten, Converter={StaticResource ByteArrayToImageSourceConverter}}" Stretch="UniformToFill"/>
-                            <Grid Background="#A5000000" Height="30" VerticalAlignment="Bottom">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Beschriftung, ConverterParameter=&lt;Ort?&gt;}" 
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="100" Width="100">
+                        <Image Source="{Binding Bilddaten, Converter={StaticResource ByteArrayToImageSourceConverter}}" Stretch="UniformToFill"/>
+                        <Grid Background="#A5000000" Height="30" VerticalAlignment="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Beschriftung, ConverterParameter=&lt;Ort?&gt;}" 
 								TextTrimming="WordEllipsis" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <Ellipse Fill="Firebrick" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="30" Grid.Column="1" Margin="10,0" Visibility="{Binding IsTitlePic, Converter={StaticResource b2vc}}"/>
-                            </Grid>
+                            <Ellipse Fill="Firebrick" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="30" Grid.Column="1" Margin="10,0" Visibility="{Binding IsTitlePic, Converter={StaticResource b2vc}}"/>
                         </Grid>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ItemsWrapGrid MaximumRowsOrColumns="3"/>
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
-            </GridView>
-
-        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid MaximumRowsOrColumns="3"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
     </RelativePanel>
 </Page>

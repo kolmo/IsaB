@@ -6,8 +6,15 @@ namespace IsaB.Entities
     /// Repraesentiert eine Immobilie (kurz Immo)
     /// </summary>
     [SQLite.Table("Immobilie")]
-    public class ImmobilieEntity : Entity
+    public class ImmobilieEntity : IsaB.Base.Entity
     {
+        #region Constructor
+        //public ImmobilieEntity()
+        //{
+
+        //}
+        #endregion
+
         #region Fields
         private float? _bruttogrundflaeche;
         private float? _grundstuecksflaeche;
@@ -47,21 +54,32 @@ namespace IsaB.Entities
             }
         }
 
-        private double _gewichtetStandard;
+        private double _globalStandard;
         /// <summary>
         /// Gets or sets the GewichtetStandard.
         /// </summary>
-        public double GewichtetStandard
+        public double GlobalStandard
         {
-            get { return _gewichtetStandard; }
+            get { return _globalStandard; }
             set
             {
-                if (_gewichtetStandard != value)
+                if (_globalStandard != value)
                 {
-                    _gewichtetStandard = value;
+                    _globalStandard = value;
                 }
             }
         }
+        private bool? _useExpertStandardSettings;
+        /// <summary>
+        /// Zeigt an ob für das Gebäude der Standardwert aus den detaillierten Festlegungen
+        /// der betreffenden Standardmerkmale ermittelt werden soll.
+        /// </summary>
+        public bool? UseExpertStandardSettings
+        {
+            get { return _useExpertStandardSettings; }
+            set { _useExpertStandardSettings = value; }
+        }
+
         /// <summary>
         /// Gets or sets the Grundstuecksflaeche.
         /// </summary>

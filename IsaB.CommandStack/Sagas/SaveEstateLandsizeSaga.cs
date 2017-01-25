@@ -24,6 +24,7 @@ namespace IsaB.CommandStack.Sagas
                 {
                     estate.Grundstuecksflaeche = message.Landsize;
                     estate.Bodenrichtwert = message.StandardGroundValue;
+                    estate.Bruttogrundflaeche = message.LivingSpace;
                     Repository.Save(estate);
                 }
             }

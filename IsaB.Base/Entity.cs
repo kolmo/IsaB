@@ -1,8 +1,6 @@
-﻿using IsaB.Infrastructure;
-
-namespace IsaB.Entities
+﻿namespace IsaB.Base
 {
-    public class Entity : IEntity
+    public class Entity
     {
         [SQLite.PrimaryKey]
         [SQLite.AutoIncrement]

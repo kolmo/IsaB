@@ -1,9 +1,5 @@
 ﻿using IsaB.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SQLiteWrapper = SQLite;
 
 namespace IsaB.Infrastructure.SQLite
@@ -16,69 +12,57 @@ namespace IsaB.Infrastructure.SQLite
             _dbPath = dbPath;
         }
 
-        public IEntity GetEstateById(int id)
+        #region Interface methods
+        public T GetById<T>(int id) where T : Base.Entity, new()
         {
             using (SQLiteWrapper.SQLiteConnection db = new SQLiteWrapper.SQLiteConnection(_dbPath))
             {
-                return db.Table<ImmobilieEntity>().FirstOrDefault(x => x.ID == id);
+                return db.Table<T>().Where(x => x.ID == id).First();
             }
         }
-        public IEntity GetPictureById(int pictureID)
+        public void Save<T>(T item) where T : Base.Entity, new()
         {
             using (SQLiteWrapper.SQLiteConnection db = new SQLiteWrapper.SQLiteConnection(_dbPath))
             {
-                return db.Table<ImmobilieBildEntity>().FirstOrDefault(x => x.ID == pictureID);
+                if (db.Table<T>().Any(x => x.ID == item.ID))
+                    db.Update(item);
+                else
+                {
+                    db.Insert(item);
+                }
             }
         }
-        public T GetById<T>(int id) where T : IEntity
+        public void Delete<T>(T item) where T : Base.Entity, new()
         {
-            if (typeof(T) == typeof(ImmobilieEntity))
+            if (typeof(T) == typeof(ImmobilieBildEntity))
             {
-                return (T) GetEstateById(id);
-            }
-            else if (typeof(T) == typeof(ImmobilieBildEntity))
-            {
-                return (T)GetPictureById(id);
+                Delete((dynamic)item);
             }
             else
             {
-                return default(T);
+                using (SQLiteWrapper.SQLiteConnection db = new SQLiteWrapper.SQLiteConnection(_dbPath))
+                {
+                    db.Delete(item);
+                }
             }
         }
-        public void Save<T>(T item) where T : IEntity
-        {
-            Save((dynamic)item);
-        }
-        public void Delete<T>(T item) where T : IEntity
-        {
-            Delete((dynamic)item);
-        }
+
+        #endregion
+
         #region Private methods
-        private void Save(ImmobilieEntity item)
+        private void Delete(ImmobilieBildEntity item)
         {
             using (SQLiteWrapper.SQLiteConnection db = new SQLiteWrapper.SQLiteConnection(_dbPath))
             {
-                if (db.Table<ImmobilieEntity>().Any(x => x.ID == item.ID))
-                    db.Update(item);
-                else
-                    db.Insert(item);
-            }
-        }
-        private void Save(ImmobilieBildEntity item)
-        {
-            using (SQLiteWrapper.SQLiteConnection db = new SQLiteWrapper.SQLiteConnection(_dbPath))
-            {
-                if (db.Table<ImmobilieBildEntity>().Any(x => x.ID == item.ID))
-                    db.Update(item);
-                else
-                    db.Insert(item);
-            }
-        }
-        private void Delete(ImmobilieBildEntity picture)
-        {
-            using (SQLiteWrapper.SQLiteConnection db = new SQLiteWrapper.SQLiteConnection(_dbPath))
-            {
-                db.Delete(picture);
+                db.BeginTransaction();
+                var estateWithPicAsTitle = db.Table<ImmobilieEntity>().FirstOrDefault(x => x.TitlePictureId == item.ID);
+                if (estateWithPicAsTitle != null)
+                {
+                    estateWithPicAsTitle.TitlePictureId = null;
+                    db.Update(estateWithPicAsTitle);
+                }
+                db.Delete(item);
+                db.Commit();
             }
         }
         #endregion

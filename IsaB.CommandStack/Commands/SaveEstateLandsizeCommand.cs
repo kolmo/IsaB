@@ -12,5 +12,6 @@ namespace IsaB.CommandStack.Commands
         public int EstateID { get; set; }
         public float? Landsize { get; set; }
         public float? StandardGroundValue { get; set; }
+        public float? LivingSpace { get; set; }
     }
 }

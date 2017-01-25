@@ -1,6 +1,5 @@
 ﻿using IsaB.BusinessObjects;
 using System.Linq;
-using IsaB.Interfaces.Services;
 
 namespace IsaB.Model
 {

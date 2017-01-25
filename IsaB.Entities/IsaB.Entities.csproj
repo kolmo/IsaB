@@ -108,11 +108,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaupreisindexEntity.cs" />
-    <Compile Include="Entity.cs" />
+    <Compile Include="EstateStandardLevelPropertyEntity.cs" />
     <Compile Include="GebaeudeartEntity.cs" />
     <Compile Include="GebaeudeteilEntity.cs" />
     <Compile Include="GebArtBaupreisindexEntity.cs" />
-    <Compile Include="GebArtStandardEntity.cs" />
     <Compile Include="GebArtXAusbauEntity.cs" />
     <Compile Include="GebArtXBauweiseEntity.cs" />
     <Compile Include="GebAusbauzustandEntity.cs" />
@@ -128,12 +127,16 @@
     <Compile Include="ModernisierungsgradEntity.cs" />
     <Compile Include="NHKostenEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StandardStufeEntity.cs" />
-    <Compile Include="TeilStandardEntiy.cs" />
+    <Compile Include="StandardLevelPropertyEntity.cs" />
+    <Compile Include="PartStandardEntiy.cs" />
     <Compile Include="WaegungsanteilEntity.cs" />
     <EmbeddedResource Include="Properties\IsaB.Entities.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IsaB.Base\IsaB.Base.csproj">
+      <Project>{e83f2c17-c1e0-41af-9827-a65fb5f227d0}</Project>
+      <Name>IsaB.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsaB.Infrastructure\IsaB.Infrastructure.csproj">
       <Project>{0de36ba0-e802-4286-a67b-f64a2fc67015}</Project>
       <Name>IsaB.Infrastructure</Name>

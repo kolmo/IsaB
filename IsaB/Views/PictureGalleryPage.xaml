@@ -5,6 +5,7 @@
     xmlns:common="using:Sawerili.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+     xmlns:controls="using:Template10.Controls"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:prism="using:Microsoft.Practices.Prism.StoreApps"
@@ -18,59 +19,21 @@
         x:Name="itemsViewSource"
         Source="{Binding Bilder}"/>
     </Page.Resources>
-    <Page.BottomAppBar>
-        <AppBar IsSticky="True" IsOpen="True">
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <AppBarButton x:Name="takePictureButton"  Command="{Binding TakePictureCommand}"
-                               Label="Aufnehmen" Icon="Camera"
-                  AutomationProperties.Name="Aufnehmen"/>
-                <AppBarButton x:Name="loadPictureButton" Command="{Binding LoadPictureCommand, Mode=OneWay}"
-                              Label="Öffnen" Icon="OpenLocal"
-                  AutomationProperties.Name="Öffnen"/>
-            </StackPanel>
-        </AppBar>
-    </Page.BottomAppBar>
-    <!--
-        Dieses Raster fungiert als Stammbereich für die Seite, die zwei Zeilen definiert:
-        * Zeile 0 enthält die Schaltfläche "Zurück" und den Seitentitel.
-        * Zeile 1 enthält den Rest des Seitenlayouts.
-    -->
-	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<Grid.ChildrenTransitions>
-			<TransitionCollection>
-				<EntranceThemeTransition/>
-			</TransitionCollection>
-		</Grid.ChildrenTransitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="140"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
-        <!-- Schaltfläche "Zurück" und Seitentitel -->
-		<Grid x:Name="titlePanel" Grid.ColumnSpan="2">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="120"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
-			<Button x:Name="backButton" Margin="39,59,39,0" Command="{Binding GoBackCommand, ElementName=pageRoot}"
-				Style="{StaticResource NavigationBackButtonNormalStyle}"
-				VerticalAlignment="Top"
-				AutomationProperties.Name="Back"
-				AutomationProperties.AutomationId="BackButton"
-				AutomationProperties.ItemType="Navigation Button"/>
-			<StackPanel Grid.Column="1" Margin="0,17,0,24" Orientation="Vertical">
-				<TextBlock x:Name="immoDisplay" TextWrapping="Wrap" Text="{Binding ImmoTitle}" Margin="0,0,0,14" Style="{StaticResource GroupHeaderTextStyle}"/>
-				<TextBlock x:Name="pageTitle" Style="{StaticResource HeaderTextBlockStyle}" 
-					IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Text="Bilder" FontFamily="Global User Interface"/>
-			</StackPanel>
-		</Grid>
-
+  
+	<RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <controls:PageHeader x:Name="pageHeader" Frame="{x:Bind Frame}"
+                             RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" Text="Bilder zur Immobilie">
+            <controls:PageHeader.PrimaryCommands>
+                <AppBarButton Label="Foto aufnehmen" Icon="Camera" Command="{Binding Path=TakePictureCommand}" />
+                <AppBarButton  Label="Öffnen" Icon="OpenLocal" Command="{Binding LoadPictureCommand, Mode=OneWay}"/>
+            </controls:PageHeader.PrimaryCommands>
+        </controls:PageHeader>
         <!-- Elementliste mit vertikalem Bildlauf -->
 		<GridView
 			x:Name="itemListView"
-			AutomationProperties.AutomationId="ItemsListView"
-			AutomationProperties.Name="Items"
 			TabIndex="1"
-			Grid.Row="1"
 			ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
 			CanReorderItems="True" CanDragItems="True">
 			<GridView.ItemTemplate>
@@ -84,7 +47,7 @@
 							</Grid.ColumnDefinitions>
 							<TextBlock Text="{Binding Beschriftung, ConverterParameter=&lt;Ort?&gt;}" 
 								TextTrimming="WordEllipsis" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-							<Ellipse Fill="Firebrick" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="30" Grid.Column="1" Margin="10,0" Visibility="{Binding IsTitlePic, Converter={StaticResource Bool2VisiConverter}}"/>
+							<Ellipse Fill="Firebrick" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="30" Grid.Column="1" Margin="10,0" Visibility="{Binding IsTitlePic, Converter={StaticResource b2vc}}"/>
 						</Grid>
 					</Grid>
 				</DataTemplate>
@@ -95,5 +58,5 @@
 				</ItemsPanelTemplate>
 			</GridView.ItemsPanel>
 		</GridView>
-	</Grid>
+	</RelativePanel>
 </Page>

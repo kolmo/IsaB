@@ -1,13 +1,13 @@
-﻿using System;
+﻿using IsaB.Entities;
+using SQLite;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IsaB.QueryStack
 {
     public interface IStaticsService
     {
-        IList<Entities.GebaeudeartEntity> BuildingKinds { get; }
+        IList<GebaeudeartEntity> BuildingKinds { get; }
+        TableQuery<GebaeudeteilEntity> BuildingParts { get; }
+        TableQuery<StandardLevelPropertyEntity> StandardLevelProperties { get; }
     }
 }

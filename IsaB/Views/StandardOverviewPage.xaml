@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="IsaB.Views.StandardOverviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IsaB.Views"
+     xmlns:controls="using:Template10.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <controls:PageHeader x:Name="pageHeader" Frame="{x:Bind Frame}"
+                             RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" Text="Gebäudestandard - Überblick">
+        </controls:PageHeader>
+        <TextBlock Name="labelPauschalwert"
+           RelativePanel.Below="pageHeader"
+           RelativePanel.AlignLeftWithPanel="True"
+           Text="Pauschalwert"/>
+        <Slider Name="slStandard"
+                    RelativePanel.Below="labelPauschalwert"
+                    RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.AlignRightWithPanel="True"
+                Minimum="1" Maximum="5" Value="{Binding Path=GlobalStandard, Mode=TwoWay}"
+                >
+        </Slider>
+        <ListView Name="lvPartLevels"
+                  RelativePanel.Below="slStandard"
+                  RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.AlignRightWithPanel="True"
+                  ItemsSource="{Binding Path=BuildingParts}"
+                  IsItemClickEnabled="True"
+                  ItemClick="lvPartLevels_ItemClick"/>
+    </RelativePanel>
+</Page>

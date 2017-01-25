@@ -22,19 +22,29 @@
                               Icon="Save"/>
             </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
-        <StackPanel Orientation="Vertical"
-                     RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignLeftWithPanel="True"
-                RelativePanel.Below="pageHeader">
-            <TextBox Header="Grundstücksfläche (qm)"              
+        <TextBox Name="tbGroundSize"
+            RelativePanel.AlignRightWithPanel="True"
+                 RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.Below="pageHeader"
+                Header="Grundstücksfläche (qm)"              
                 Text="{Binding Landsize, Mode=TwoWay,
                 Converter={StaticResource f2s},
                 UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Margin="0,10,0,0" Header="Bodenrichtwert (€)"              
+        <TextBox Name="tbStdGroundValue"
+            RelativePanel.Below="tbGroundSize"
+                 RelativePanel.AlignLeftWithPanel="True"
+                 RelativePanel.AlignRightWithPanel="True"
+                 Header="Bodenrichtwert (€)"              
                 Text="{Binding StandardGroundValue, Mode=TwoWay, 
                 Converter={StaticResource f2s},
                 UpdateSourceTrigger=PropertyChanged}"/>
-        </StackPanel>
-
+        <TextBox Name="tbLivingSpace"
+            RelativePanel.Below="tbStdGroundValue"
+                 RelativePanel.AlignLeftWithPanel="True"
+                 RelativePanel.AlignRightWithPanel="True"
+                 Header="Bruttowohnfläche"              
+                Text="{Binding LivingSpace, Mode=TwoWay, 
+                Converter={StaticResource f2s},
+                UpdateSourceTrigger=PropertyChanged}"/>
     </RelativePanel>
 </Page>

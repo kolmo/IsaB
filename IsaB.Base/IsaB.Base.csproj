@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C399A4EF-9F1F-4BA3-9E32-488184D67E02}</ProjectGuid>
+    <ProjectGuid>{E83F2C17-C1E0-41AF-9827-A65FB5F227D0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IsaB.Infrastructure.SQLite</RootNamespace>
-    <AssemblyName>IsaB.Infrastructure.SQLite</AssemblyName>
+    <RootNamespace>IsaB.Base</RootNamespace>
+    <AssemblyName>IsaB.Base</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
@@ -107,23 +107,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SQLiteRepository.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\IsaB.Infrastructure.SQLite.rd.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IsaB.Base\IsaB.Base.csproj">
-      <Project>{e83f2c17-c1e0-41af-9827-a65fb5f227d0}</Project>
-      <Name>IsaB.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsaB.Entities\IsaB.Entities.csproj">
-      <Project>{381d6b2d-002d-42f3-8dc0-9be34407ada2}</Project>
-      <Name>IsaB.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsaB.Infrastructure\IsaB.Infrastructure.csproj">
-      <Project>{0de36ba0-e802-4286-a67b-f64a2fc67015}</Project>
-      <Name>IsaB.Infrastructure</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Properties\IsaB.Base.rd.xml" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

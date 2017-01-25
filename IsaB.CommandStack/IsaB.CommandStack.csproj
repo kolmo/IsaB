@@ -111,16 +111,22 @@
     <Compile Include="Commands\DeletePictureCommand.cs" />
     <Compile Include="Commands\SaveEstateAddressCommand.cs" />
     <Compile Include="Commands\SaveEstateLandsizeCommand.cs" />
+    <Compile Include="Commands\SavePartPropSettingCommand.cs" />
     <Compile Include="Commands\SavePictureCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sagas\DeletePictureSaga.cs" />
     <Compile Include="Sagas\SaveEstateAddressSaga.cs" />
     <Compile Include="Sagas\CreateNewEstateSaga.cs" />
     <Compile Include="Sagas\SaveEstateLandsizeSaga.cs" />
+    <Compile Include="Sagas\SavePartPropSettingSaga.cs" />
     <Compile Include="Sagas\SavePictureSaga.cs" />
     <EmbeddedResource Include="Properties\IsaB.CommandStack.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IsaB.Base\IsaB.Base.csproj">
+      <Project>{e83f2c17-c1e0-41af-9827-a65fb5f227d0}</Project>
+      <Name>IsaB.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsaB.Entities\IsaB.Entities.csproj">
       <Project>{381d6b2d-002d-42f3-8dc0-9be34407ada2}</Project>
       <Name>IsaB.Entities</Name>

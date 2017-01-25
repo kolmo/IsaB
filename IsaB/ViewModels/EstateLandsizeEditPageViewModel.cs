@@ -38,6 +38,14 @@ namespace IsaB.ViewModels
             get { return _standardGroundValue; }
             set { Set(ref _standardGroundValue, value); }
         }
+        private float? _livingSpace;
+
+        public float? LivingSpace
+        {
+            get { return _livingSpace; }
+            set { Set(ref _livingSpace, value); }
+        }
+
         #region Overrides
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
@@ -52,6 +60,7 @@ namespace IsaB.ViewModels
                     {
                         Landsize = _estate.Grundstuecksflaeche;
                         StandardGroundValue = _estate.Bodenrichtwert;
+                        LivingSpace = _estate.Bruttogrundflaeche;
                     }
                 }
             }
@@ -65,8 +74,9 @@ namespace IsaB.ViewModels
             SaveEstateLandsizeCommand cmd = new SaveEstateLandsizeCommand()
             {
                 EstateID = _estateID,
-                Landsize = this.Landsize,
-                StandardGroundValue = this.StandardGroundValue
+                Landsize = Landsize,
+                StandardGroundValue = StandardGroundValue,
+                LivingSpace = LivingSpace
             };
             _bus.Send(cmd);
         }

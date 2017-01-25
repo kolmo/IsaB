@@ -59,9 +59,9 @@ namespace IsaB.ViewModels
             get { return _pictures; }
             set { Set(ref _pictures, value); }
         }
-        private byte[] _titlePicture;
+        private object _titlePicture;
 
-        public byte[] TitlePicture
+        public object TitlePicture
         {
             get { return _titlePicture; }
             set { Set(ref _titlePicture, value); }
@@ -84,7 +84,18 @@ namespace IsaB.ViewModels
         private void LoadPictures()
         {
             Pictures = _estateService.GetEstatePics(_estateID);
-            TitlePicture = Pictures?.FirstOrDefault(x => x.ID == Estate.TitlePictureId)?.Bilddaten;
+            var titlePic = Pictures?.FirstOrDefault(x => x.ID == Estate.TitlePictureId)?.Bilddaten;
+            if (titlePic == null)
+            {
+                if (Helper.Constants.DefaultImageSources.ContainsKey(Estate.GebaeudeartId))
+                {
+                    TitlePicture = Helper.Constants.DefaultImageSources[Estate.GebaeudeartId];
+                }
+            }
+            else
+            {
+                TitlePicture = titlePic;
+            }
         }
         private async void TakePictureAction()
         {

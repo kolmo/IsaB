@@ -11,6 +11,7 @@
     mc:Ignorable="d">
 
     <Page.Resources>
+        <common:ByteArrayToImageSourceConverter x:Key="ba2isc" DefaultImageResourcePath="ms-appx:///Assets/Square44x44Logo.png"/>
         <DataTemplate x:Key="ImageOverlayLandingDataTemplate">
             <Grid Background="#FF939598" Height="250" Width="250">
                 <!--<Image Source="{Binding Bilddaten, Converter={StaticResource ByteArrayToImageSourceConverter}}"  Stretch="UniformToFill"/>-->

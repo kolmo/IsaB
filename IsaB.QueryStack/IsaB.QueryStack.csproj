@@ -124,6 +124,10 @@
     <Folder Include="Services\Helper\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IsaB.Base\IsaB.Base.csproj">
+      <Project>{e83f2c17-c1e0-41af-9827-a65fb5f227d0}</Project>
+      <Name>IsaB.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsaB.Entities\IsaB.Entities.csproj">
       <Project>{381d6b2d-002d-42f3-8dc0-9be34407ada2}</Project>
       <Name>IsaB.Entities</Name>

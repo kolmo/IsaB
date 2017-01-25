@@ -1,8 +1,8 @@
 ﻿using IsaB.Interfaces;
 using System.Linq;
 using IsaB.Entities;
-using System;
 using System.Collections.Generic;
+using System;
 
 namespace IsaB.QueryStack.Services
 {
@@ -27,6 +27,22 @@ namespace IsaB.QueryStack.Services
             get
             {
                 return _dbService.Modernizations.AsQueryable();
+            }
+        }
+
+        public IQueryable<EstateStandardLevelPropertyEntity> EstateStandardLevelPropertyEntities
+        {
+            get
+            {
+                return _dbService.EstateStandardLevelProperties.AsQueryable();
+            }
+        }
+
+        public IQueryable<PartStandardEntity> PartStandards
+        {
+            get
+            {
+                return _dbService.PartStandards.AsQueryable();
             }
         }
 

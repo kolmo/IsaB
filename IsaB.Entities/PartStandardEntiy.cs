@@ -1,9 +1,9 @@
 ﻿namespace IsaB.Entities
 {
-    [SQLite.Table("TeilStandard")]
-    public class TeilStandardEntity
+    [SQLite.Table("PartStandardEntity")]
+    public class PartStandardEntity
     {
-        [SQLite.PrimaryKey, SQLite.AutoIncrement]
+        [SQLite.PrimaryKey]
         public int ID { get; set; }
         public int ImmoId { get; set; }
         public int TeileId { get; set; }

@@ -14,6 +14,7 @@ namespace IsaB.Common
     /// </summary>
     public class ByteArrayToImageSourceConverter : IValueConverter
     {
+        public string DefaultImageResourcePath { get; set; }
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is byte[])
@@ -33,8 +34,12 @@ namespace IsaB.Common
             }
             else if (value is BitmapImage)
                 return value;
+            else if (value is string)
+                return new BitmapImage(new Uri((string)value));
+            else if (value is Uri)
+                return new BitmapImage(value as Uri);
             else
-                return null;
+                return DefaultImageResourcePath;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

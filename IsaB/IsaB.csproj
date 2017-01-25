@@ -124,9 +124,12 @@
     <Compile Include="Common\DecimalToStringConverter.cs" />
     <Compile Include="Common\DoubleToSolidColorBrushConverter.cs" />
     <Compile Include="Common\FloatToStringConverter.cs" />
+    <Compile Include="Common\Int2SolidColorBrushConverter.cs" />
+    <Compile Include="Common\SetDefaultImageSourceBehavior.cs" />
     <Compile Include="Common\StringToPlaceholderConverter.cs" />
     <Compile Include="Helper\CommandsToAddEvent.cs" />
     <Compile Include="Helper\CommandWrapper.cs" />
+    <Compile Include="Helper\Constants.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\GebaeudeBaseModel.cs" />
     <Compile Include="Models\ImmobilieModel.cs" />
@@ -140,7 +143,10 @@
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
     <Compile Include="ViewModels\PictureEditPageViewModel.cs" />
+    <Compile Include="ViewModels\PictureGalleryPageViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModels\StandardLevelPropSelectionPageViewModel.cs" />
+    <Compile Include="ViewModels\StandardOverviewPageViewModel.cs" />
     <Compile Include="Views\PictureEditPage.xaml.cs">
       <DependentUpon>PictureEditPage.xaml</DependentUpon>
     </Compile>
@@ -176,6 +182,12 @@
     </Compile>
     <Compile Include="Views\Splash.xaml.cs">
       <DependentUpon>Splash.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StandardLevelPropSelectionPage.xaml.cs">
+      <DependentUpon>StandardLevelPropSelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StandardOverviewPage.xaml.cs">
+      <DependentUpon>StandardOverviewPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +271,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\StandardLevelPropSelectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StandardOverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -270,6 +290,10 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IsaB.Base\IsaB.Base.csproj">
+      <Project>{e83f2c17-c1e0-41af-9827-a65fb5f227d0}</Project>
+      <Name>IsaB.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsaB.CommandStack\IsaB.CommandStack.csproj">
       <Project>{d57ad7f7-77ac-41ca-83bc-138b070b5a90}</Project>
       <Name>IsaB.CommandStack</Name>

@@ -58,6 +58,8 @@ namespace IsaB
             IBus bus = Container.GetInstance<IBus>();
             ConfigureRegistryBoundedContext(bus);
             Container.RegisterInstance<IDatabaseService>(new DatabaseService(_dbName));
+            IDatabaseService dataBaseService = Container.GetInstance<IDatabaseService>();
+            dataBaseService.InitializeDataSource();
             Container.RegisterInstance<IRepository>(new SQLiteRepository(_dbName));
             Container.Register<INavigable, MainPageViewModel>(typeof(MainPage).FullName);
             Container.Register<INavigable, EstateListPageViewModel>(typeof(EstateListPage).FullName);
@@ -65,11 +67,12 @@ namespace IsaB
             Container.Register<INavigable, EstateAddressEditPageViewModel>(typeof(EstateAddressEditPage).FullName);
             Container.Register<INavigable, EstateLandsizeEditPageViewModel>(typeof(EstateLandsizeEditPage).FullName);
             Container.Register<INavigable, PictureEditPageViewModel>(typeof(PictureEditPage).FullName);
+            Container.Register<INavigable, PictureGalleryPageViewModel>(typeof(PictureGalleryPage).FullName);
+            Container.Register<INavigable, StandardOverviewPageViewModel>(typeof(StandardOverviewPage).FullName);
+            Container.Register<INavigable, StandardLevelPropSelectionPageViewModel>(typeof(StandardLevelPropSelectionPage).FullName);
             Container.Register<IQueryModelDatabase, QueryStack.QueryModelDatabase>(new PerContainerLifetime());
             Container.Register<IEstateService, EstateService>();
             Container.Register<IStaticsService, StaticsService>(new PerContainerLifetime());
-            IDatabaseService dataBaseService = Container.GetInstance<IDatabaseService>();
-            dataBaseService.InitializeDataSource();
 
             if (Window.Current.Content as ModalDialog == null)
             {
@@ -107,6 +110,8 @@ namespace IsaB
             bus.RegisterSaga<SaveEstateLandsizeCommand, SaveEstateLandsizeSaga>();
             bus.RegisterSaga<SavePictureCommand, SavePictureSaga>();
             bus.RegisterSaga<DeletePictureCommand, DeletePictureSaga>();
+            bus.RegisterSaga<SavePartPropSettingCommand, SavePartPropSettingSaga>();
+            Container.Register(typeof(SavePartPropSettingSaga));
             Container.Register(typeof(CreateNewEstateSaga));
             Container.Register(typeof(SaveEstateAddressSaga));
             Container.Register(typeof(SaveEstateLandsizeSaga));

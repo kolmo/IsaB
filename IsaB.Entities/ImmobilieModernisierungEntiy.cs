@@ -4,7 +4,7 @@ namespace IsaB.Entities
     [SQLite.Table("ImmobilieModernisierung")]
     public class ImmobilieModernisierungEntity
     {
-        [SQLite.PrimaryKey, SQLite.AutoIncrement]
+        [SQLite.PrimaryKey]
         public int ID { get; set; }
         public int ImmoID { get; set; }
         public int ModernId { get; set; }

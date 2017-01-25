@@ -123,7 +123,12 @@
     <Compile Include="Saga.cs" />
     <EmbeddedResource Include="Properties\IsaB.Infrastructure.rd.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\IsaB.Base\IsaB.Base.csproj">
+      <Project>{e83f2c17-c1e0-41af-9827-a65fb5f227d0}</Project>
+      <Name>IsaB.Base</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
