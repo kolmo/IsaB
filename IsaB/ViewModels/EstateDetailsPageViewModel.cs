@@ -136,7 +136,8 @@ namespace IsaB.ViewModels
         #region Delete estate actions
         private void DeleteEstateAction()
         {
-
+            CommandStack.Commands.DeleteEstateCommand cmd = new CommandStack.Commands.DeleteEstateCommand {EstateId = _estateID };
+            _bus.Send(cmd);
         }
         #endregion
     }

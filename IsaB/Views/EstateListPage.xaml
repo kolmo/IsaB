@@ -13,14 +13,14 @@
     <Page.Resources>
         <common:BuildingKindToImageSourceConverter x:Key="bk2isc"/>
         <DataTemplate x:Key="ImageOverlayLandingDataTemplate">
-            <Grid Background="#FF939598" Height="250" Width="250">
+            <Grid Height="250" Width="250">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Image Source="{Binding GebaeudeartId, Converter={StaticResource bk2isc}}"  Stretch="UniformToFill"/>
-                <StackPanel Grid.Row="1" Orientation="Vertical"  
-                    Height="90" VerticalAlignment="Bottom">
+                <StackPanel Grid.Row="1" Orientation="Vertical" Background="#FF939598"
+                    Height="90">
                     <TextBlock Text="{Binding Ort, ConverterParameter=&lt;Ort?&gt;, Converter={StaticResource StringToPlaceholderConverter}}" 
                        Margin="10,3,0,0" Width="242" Height="62" 
                        TextTrimming="WordEllipsis" TextWrapping="Wrap" HorizontalAlignment="Left"/>

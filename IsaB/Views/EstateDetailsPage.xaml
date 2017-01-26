@@ -27,7 +27,7 @@
                              RelativePanel.AlignTopWithPanel="True" Text="Immobiliendetails - Überblick">
             <controls:PageHeader.PrimaryCommands>
                 <AppBarButton Label="Foto aufnehmen" Icon="Camera" Command="{Binding Path=TakePictureCommand}" />
-                <AppBarButton Label="Löschen" Icon="Delete" Command="{Binding Path=DeleteEstateCommand}" />
+                <AppBarButton Label="Löschen" Icon="Delete" Click="AppBarButton_Click" />
             </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
         <Image Name="titlePicture" Width="100" MaxHeight="500"

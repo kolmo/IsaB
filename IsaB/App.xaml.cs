@@ -112,12 +112,14 @@ namespace IsaB
             bus.RegisterSaga<SavePictureCommand, SavePictureSaga>();
             bus.RegisterSaga<DeletePictureCommand, DeletePictureSaga>();
             bus.RegisterSaga<SavePartPropSettingCommand, SavePartPropSettingSaga>();
+            bus.RegisterSaga<DeleteEstateCommand, DeleteEstateSaga>();
             Container.Register(typeof(SavePartPropSettingSaga));
             Container.Register(typeof(CreateNewEstateSaga));
             Container.Register(typeof(SaveEstateAddressSaga));
             Container.Register(typeof(SaveEstateLandsizeSaga));
             Container.Register(typeof(SavePictureSaga));
             Container.Register(typeof(DeletePictureSaga));
+            Container.Register(typeof(DeleteEstateSaga));
         }
     }
 }
