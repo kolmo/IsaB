@@ -27,6 +27,7 @@
                              RelativePanel.AlignTopWithPanel="True" Text="Immobiliendetails - Überblick">
             <controls:PageHeader.PrimaryCommands>
                 <AppBarButton Label="Foto aufnehmen" Icon="Camera" Command="{Binding Path=TakePictureCommand}" />
+                <AppBarButton Label="Löschen" Icon="Delete" Command="{Binding Path=DeleteEstateCommand}" />
             </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
         <Image Name="titlePicture" Width="100" MaxHeight="500"
@@ -69,7 +70,15 @@
         <TextBlock Name="txtBuildingKind"
                        RelativePanel.Below="txtNHK"
                        RelativePanel.RightOf="titlePicture"
-                       Text="{Binding BuildingKind}"/>
+                       Text="{Binding BuildingKind}">
+             <Interactivity:Interaction.Behaviors>
+                <Behaviors:EventTriggerBehaviorBase EventName="Tapped">
+                    <Behaviors:NavToPageAction Frame="{x:Bind Frame}" 
+                            Page="IsaB.Views.BuildingOverviewPage"
+                            Parameter="{Binding Path=Estate.ID}"/>
+                </Behaviors:EventTriggerBehaviorBase>
+            </Interactivity:Interaction.Behaviors>
+        </TextBlock>
         <Slider Name="slStandard"
                     RelativePanel.Below="txtBuildingKind"
                     RelativePanel.RightOf="titlePicture"

@@ -1,13 +1,9 @@
 ﻿using IsaB.CommandStack.Commands;
 using IsaB.Entities;
 using IsaB.Infrastructure;
-using IsaB.Interfaces;
-using System;
+using IsaB.QueryStack;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
 

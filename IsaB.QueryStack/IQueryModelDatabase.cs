@@ -12,6 +12,8 @@ namespace IsaB.QueryStack
     {
         TableQuery<ImmobilieEntity> Estates { get; }
         TableQuery<GebaeudeartEntity> BuildingKinds { get; }
+        TableQuery<GebBauweiseEntity> Constructions { get; }
+        TableQuery<GebAusbauzustandEntity> FittingOuts { get; }
         TableQuery<ImmobilieModernisierungEntity> Modernizations { get; }
         TableQuery<ImmobilieBildEntity> Pictures { get; }
         TableQuery<PartStandardEntity> PartStandards { get; }

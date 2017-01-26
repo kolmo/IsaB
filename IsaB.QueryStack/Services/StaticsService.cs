@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using IsaB.Entities;
 using SQLite;
 
@@ -36,6 +33,22 @@ namespace IsaB.QueryStack.Services
             get
             {
                 return _dbService.StandardLevelProperties;
+            }
+        }
+        private IList<GebBauweiseEntity> _constructions;
+        public IList<GebBauweiseEntity> Constructions
+        {
+            get
+            {
+                return _constructions ?? (_constructions = _dbService.Constructions.ToList());
+            }
+        }
+        private IList<GebAusbauzustandEntity> _fittingOuts;
+        public IList<GebAusbauzustandEntity> FittingOuts
+        {
+            get
+            {
+                return _fittingOuts ?? (_fittingOuts=_dbService.FittingOuts.ToList());
             }
         }
     }

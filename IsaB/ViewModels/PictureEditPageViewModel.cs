@@ -1,6 +1,6 @@
 ﻿using IsaB.Entities;
 using IsaB.Infrastructure;
-using IsaB.Interfaces;
+using IsaB.QueryStack;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Template10.Mvvm;

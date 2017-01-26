@@ -1,5 +1,4 @@
-﻿using IsaB.Interfaces;
-using System.Linq;
+﻿using System.Linq;
 using IsaB.Entities;
 using System.Collections.Generic;
 using System;

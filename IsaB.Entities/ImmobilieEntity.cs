@@ -217,11 +217,13 @@ namespace IsaB.Entities
         #region Factory
         public class Factory
         {
-            public static ImmobilieEntity CreateNewInstance(string newStreet, string newCity, int buildingKind)
+            public static ImmobilieEntity CreateNewInstance(string newStreet, string newCity, int buildingKind, int construction, int fittingOut)
             {
                 return new ImmobilieEntity()
                 {
                     GebaeudeartId = buildingKind,
+                    BauweiseId = construction,
+                    AusbauzustandId=fittingOut,
                     Strasse = newStreet,
                     Ort = newCity
                 };

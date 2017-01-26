@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using IsaB.Infrastructure;
-using IsaB.Interfaces;
 using System.Linq;
 using IsaB.QueryStack;
 using Template10.Mvvm;
@@ -24,6 +23,9 @@ namespace IsaB.ViewModels
             _bus = bus;
         }
         private ImmobilieEntity _estate;
+        /// <summary>
+        /// 
+        /// </summary>
         public ImmobilieEntity Estate
         {
             get { return _estate; }

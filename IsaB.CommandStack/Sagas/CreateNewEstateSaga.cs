@@ -20,7 +20,13 @@ namespace IsaB.CommandStack.Sagas
         {
             if (message!= null)
             {
-                Entities.ImmobilieEntity estate = Entities.ImmobilieEntity.Factory.CreateNewInstance(message.NewStreet, message.NewCity, message.BuildingKind);
+                Entities.ImmobilieEntity estate = Entities.ImmobilieEntity.Factory.CreateNewInstance(
+                    message.NewStreet, 
+                    message.NewCity, 
+                    message.BuildingKind,
+                    message.Construction,
+                    message.FittingOut
+                    );
                 Repository.Save(estate);
             }
         }

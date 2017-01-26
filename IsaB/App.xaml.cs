@@ -12,7 +12,6 @@ using IsaB.ViewModels;
 using LightInject;
 using System.IO;
 using Windows.Storage;
-using IsaB.Interfaces;
 using IsaB.QueryStack;
 using IsaB.CommandStack.Sagas;
 using IsaB.CommandStack.Commands;
@@ -70,6 +69,8 @@ namespace IsaB
             Container.Register<INavigable, PictureGalleryPageViewModel>(typeof(PictureGalleryPage).FullName);
             Container.Register<INavigable, StandardOverviewPageViewModel>(typeof(StandardOverviewPage).FullName);
             Container.Register<INavigable, StandardLevelPropSelectionPageViewModel>(typeof(StandardLevelPropSelectionPage).FullName);
+            Container.Register<INavigable, BuildingOverviewPageViewModel>(typeof(BuildingOverviewPage).FullName);
+            Container.Register<INavigable, NewEstatePageViewModel>(typeof(NewEstatePage).FullName);
             Container.Register<IQueryModelDatabase, QueryStack.QueryModelDatabase>(new PerContainerLifetime());
             Container.Register<IEstateService, EstateService>();
             Container.Register<IStaticsService, StaticsService>(new PerContainerLifetime());

@@ -8,12 +8,13 @@ namespace IsaB.Helper
 {
     public static class Constants
     {
-        public static Dictionary<int, Uri> DefaultImageSources = new Dictionary<int, Uri>();
+        public static Dictionary<int, Uri> DefaultImageSourceUris = new Dictionary<int, Uri>();
         static Constants()
         {
-            DefaultImageSources[3] = new Uri("ms-appx:///Assets/Square44x44Logo.png");
-            DefaultImageSources[1] = new Uri("ms-appx:///Assets/ThumbUp.png");
-            DefaultImageSources[2] = new Uri("ms-appx:///Assets/StoreLogo.png");
+            DefaultImageSourceUris[1] = new Uri("ms-appx:///Assets/casa0069.png");
+            DefaultImageSourceUris[2] = new Uri("ms-appx:///Assets/casa0069.png");
+            DefaultImageSourceUris[3] = new Uri("ms-appx:///Assets/casa0069.png");
+            DefaultImageSourceUris[4] = new Uri("ms-appx:///Assets/casa0069.png");
         }
     }
 }

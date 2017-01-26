@@ -1,11 +1,9 @@
 ﻿using IsaB.Entities;
 using IsaB.Infrastructure;
-using IsaB.Interfaces;
 using IsaB.QueryStack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.Media.Capture;
@@ -30,6 +28,7 @@ namespace IsaB.ViewModels
             _staticsService = staticsService;
             _bus = bus;
             TakePictureCommand = new DelegateCommand(TakePictureAction);
+            DeleteEstateCommand = new DelegateCommand(DeleteEstateAction);
         }
 
         private ImmobilieEntity _estate;
@@ -67,6 +66,7 @@ namespace IsaB.ViewModels
             set { Set(ref _titlePicture, value); }
         }
         public DelegateCommand TakePictureCommand { get; private set; }
+        public DelegateCommand DeleteEstateCommand { get; private set; }
 
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
@@ -87,9 +87,9 @@ namespace IsaB.ViewModels
             var titlePic = Pictures?.FirstOrDefault(x => x.ID == Estate.TitlePictureId)?.Bilddaten;
             if (titlePic == null)
             {
-                if (Helper.Constants.DefaultImageSources.ContainsKey(Estate.GebaeudeartId))
+                if (Helper.Constants.DefaultImageSourceUris.ContainsKey(Estate.GebaeudeartId))
                 {
-                    TitlePicture = Helper.Constants.DefaultImageSources[Estate.GebaeudeartId];
+                    TitlePicture = Helper.Constants.DefaultImageSourceUris[Estate.GebaeudeartId];
                 }
             }
             else
@@ -97,6 +97,8 @@ namespace IsaB.ViewModels
                 TitlePicture = titlePic;
             }
         }
+
+        #region Take picture actions
         private async void TakePictureAction()
         {
             var camera = new CameraCaptureUI();
@@ -125,10 +127,17 @@ namespace IsaB.ViewModels
                         PictureData = bilddaten
                     };
                     _bus.Send(command);
-                    LoadPictures();                
+                    LoadPictures();
                 }
             }
         }
+        #endregion
 
+        #region Delete estate actions
+        private void DeleteEstateAction()
+        {
+
+        }
+        #endregion
     }
 }

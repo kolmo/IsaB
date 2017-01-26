@@ -1,8 +1,5 @@
-﻿using IsaB.BusinessObjects;
-using IsaB.Entities;
-using IsaB.Interfaces;
+﻿using IsaB.Entities;
 using System.Linq;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -10,6 +7,7 @@ using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
 using IsaB.Infrastructure;
 using IsaB.CommandStack.Commands;
+using IsaB.QueryStack;
 
 namespace IsaB.ViewModels
 {
@@ -37,6 +35,8 @@ namespace IsaB.ViewModels
             CreateNewEstateCommand cmd = new CreateNewEstateCommand()
             {
                 BuildingKind = 1,
+                Construction=1,
+                FittingOut=1,
                 NewCity = "Schönaich",
                 NewStreet = "In den Bergen 3"
             };

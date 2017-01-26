@@ -12,5 +12,7 @@ namespace IsaB.CommandStack.Commands
         public string NewStreet { get; set; }
         public string NewCity { get; set; }
         public int BuildingKind { get; set; }
+        public int Construction { get; set; }
+        public int FittingOut { get; set; }
     }
 }

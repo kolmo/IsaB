@@ -44,11 +44,9 @@ namespace IsaB.Views
                 SecondaryButtonText = "Nein"
             };
             ContentDialogResult result = await noWifiDialog.ShowAsync();
-            EstateListPageViewModel viewModel = DataContext as EstateListPageViewModel;
-            if (result== ContentDialogResult.Primary && viewModel!= null)
+            if (result== ContentDialogResult.Primary )
             {
-                viewModel.AddNewEstate();
-                await viewModel.ReloadEstates();
+                App.Current.NavigationService.Navigate(typeof(Views.NewEstatePage));
             }
         }
         private void itemGridView_ItemClick(object sender, ItemClickEventArgs e)

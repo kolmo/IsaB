@@ -14,6 +14,8 @@ namespace IsaB.QueryStack
             _context = new SQLiteConnection(_dataService.DatabasePath);
             _estates = _context.Table<ImmobilieEntity>();
             _buildingKinds = _context.Table<GebaeudeartEntity>();
+            _constructions = _context.Table<GebBauweiseEntity>();
+            _fittingOuts = _context.Table<GebAusbauzustandEntity>();
             _modernizations = _context.Table<ImmobilieModernisierungEntity>();
             _pictures = _context.Table<ImmobilieBildEntity>();
             _buildingParts = _context.Table<GebaeudeteilEntity>();
@@ -21,6 +23,9 @@ namespace IsaB.QueryStack
             _standardLevelProperties = _context.Table<StandardLevelPropertyEntity>();
             _estateStandardLevelPropertyEntities = _context.Table<EstateStandardLevelPropertyEntity>();
         }
+        private readonly TableQuery<GebBauweiseEntity> _constructions = null;
+        private readonly TableQuery<GebAusbauzustandEntity> _fittingOuts = null;
+
         private readonly TableQuery<ImmobilieEntity> _estates = null;
         private readonly TableQuery<GebaeudeartEntity> _buildingKinds = null;
         private readonly TableQuery<ImmobilieModernisierungEntity> _modernizations = null;
@@ -87,6 +92,22 @@ namespace IsaB.QueryStack
             get
             {
                 return _estateStandardLevelPropertyEntities;
+            }
+        }
+
+        public TableQuery<GebBauweiseEntity> Constructions
+        {
+            get
+            {
+                return _constructions;
+            }
+        }
+
+        public TableQuery<GebAusbauzustandEntity> FittingOuts
+        {
+            get
+            {
+                return _fittingOuts;
             }
         }
     }
