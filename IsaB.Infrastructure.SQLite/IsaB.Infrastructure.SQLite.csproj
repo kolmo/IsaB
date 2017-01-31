@@ -107,6 +107,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseService.cs" />
     <Compile Include="SQLiteRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\IsaB.Infrastructure.SQLite.rd.xml" />

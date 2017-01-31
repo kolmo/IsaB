@@ -1,12 +1,12 @@
 ﻿using IsaB.Entities;
 using IsaB.Infrastructure;
+using IsaB.Models;
 using IsaB.QueryStack;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
-using static IsaB.ViewModels.StandardOverviewPageViewModel;
 
 namespace IsaB.ViewModels
 {
@@ -39,7 +39,7 @@ namespace IsaB.ViewModels
 
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            ListEntry part = parameter as ListEntry;
+            BuildingPartModel part = parameter as BuildingPartModel;
             if (part != null)
             {
                 Title = part.Name;
@@ -48,7 +48,7 @@ namespace IsaB.ViewModels
                             where s.GebTeilId == part.PartId && s.StdTabellenId == part.StdTableId
                             select s;
                 var selectedProps = _estateService.EstateStandardLevelPropertyEntities.Where(x => x.EstateId == part.EstateId).ToList();
-                List<PropItem> standardProperties = new List<PropItem>();
+                List<StandardLevelPropertyModel> standardProperties = new List<StandardLevelPropertyModel>();
                 foreach (var item in query)
                 {
                     var exp = selectedProps.FirstOrDefault(x => x.StandardLevelPropertyId == item.ID);
@@ -60,7 +60,7 @@ namespace IsaB.ViewModels
                             StandardLevelPropertyId = item.ID
                         };
                     }
-                    var pi = new PropItem(item, exp);
+                    var pi = new StandardLevelPropertyModel(item, exp);
                     pi.PropertyChanged += Pi_PropertyChanged;
                     standardProperties.Add(pi);
                 }
@@ -75,37 +75,13 @@ namespace IsaB.ViewModels
 
         private void Pi_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            PropItem pi = sender as PropItem;
+            StandardLevelPropertyModel pi = sender as StandardLevelPropertyModel;
             if (pi != null)
             {
                 CommandStack.Commands.SavePartPropSettingCommand cmd = new CommandStack.Commands.SavePartPropSettingCommand();
                 cmd.EstateStdLevelProp = pi.EstateStandardLevelProp;
                 _bus.Send(cmd);
             }
-        }
-
-        public class PropItem : BindableBase
-        {
-            public PropItem(StandardLevelPropertyEntity e, EstateStandardLevelPropertyEntity exs)
-            {
-                Entity = e;
-                EstateStandardLevelProp = exs;
-                _isSelected = exs.IsSelected;
-            }
-            public StandardLevelPropertyEntity Entity { get; }
-            public EstateStandardLevelPropertyEntity EstateStandardLevelProp { get; }
-            private bool _isSelected;
-            public bool IsSelected
-            {
-                get { return _isSelected; }
-                set
-                {
-                    EstateStandardLevelProp.IsSelected = value;
-                    Set(ref _isSelected, value);
-                }
-            }
-            public string Property { get { return Entity.Beschreibung; } }
-            public int Level { get { return Entity.Stufe; } }
         }
     }
 }

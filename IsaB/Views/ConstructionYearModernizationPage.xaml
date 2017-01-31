@@ -1,0 +1,47 @@
+﻿<Page
+    x:Class="IsaB.Views.ConstructionYearModernizationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IsaB.Views"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:converters="using:IsaB.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:IntegerToDateTimeOffsetConverter x:Key="i2d"/>
+    </Page.Resources>
+    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <controls:PageHeader x:Name="pageHeader" Frame="{x:Bind Frame}"
+                             RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" Text="Baujahr und Modernisierungen">
+        </controls:PageHeader>
+        <DatePicker Name="constructionYearTextBox"
+                 RelativePanel.Below="pageHeader"
+                 RelativePanel.AlignLeftWithPanel="True"
+                 RelativePanel.AlignRightWithPanel="True"
+                 Header="Baujahr"
+                    DayVisible="False" MonthVisible="False"
+                 Date="{Binding Path=ConstructionYear, Mode=TwoWay, Converter={StaticResource i2d}}"/>
+        <ListView Name="modernizationsListView"
+                  RelativePanel.Below="constructionYearTextBox"
+                  RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.AlignRightWithPanel="True"
+                  Margin="0,10"
+                  Header="Modernisierungen"
+                  ItemsSource="{Binding Path=Modernizations}"
+                  IsItemClickEnabled="True"
+                  ItemClick="modernizationsListView_ItemClick">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Description}"/>
+                        <TextBlock Text="{Binding Path=PointsSet}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </RelativePanel>
+</Page>

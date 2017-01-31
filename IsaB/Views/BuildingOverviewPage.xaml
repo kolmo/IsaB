@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:IsaB.Views"
     xmlns:controls="using:Template10.Controls"
+   xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Behaviors="using:Template10.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -25,30 +27,30 @@
             RelativePanel.AlignLeftWithPanel="True"
             RelativePanel.AlignRightWithPanel="True"
             Text="{Binding Path=BuildingKind}"/>
-        <TextBlock Name="labelConstruction"
-            FontSize="{ThemeResource TextStyleLargeFontSize}"
-            RelativePanel.Below="valueBuildingKind"
-            RelativePanel.AlignLeftWithPanel="True"
-            RelativePanel.AlignRightWithPanel="True"
-            Text="Gebäudeart"/>
-        <TextBlock Name="valueConstruction"
-            FontSize="{ThemeResource TextStyleExtraLargeFontSize}"
-            RelativePanel.Below="labelConstruction"
-            RelativePanel.AlignLeftWithPanel="True"
-            RelativePanel.AlignRightWithPanel="True"
-            Text="{Binding Path=Construction}"/>
-        <TextBlock Name="labelFittingOut"
-            FontSize="{ThemeResource TextStyleLargeFontSize}"
-            RelativePanel.Below="valueConstruction"
-            RelativePanel.AlignLeftWithPanel="True"
-            RelativePanel.AlignRightWithPanel="True"
-            Text="Gebäudeart"/>
-        <TextBlock Name="valueFittingOut"
-            FontSize="{ThemeResource TextStyleExtraLargeFontSize}"
-            RelativePanel.Below="labelFittingOut"
-            RelativePanel.AlignLeftWithPanel="True"
-            RelativePanel.AlignRightWithPanel="True"
-            Text="{Binding Path=FittingOut}"/>
+        <StackPanel Name="panelConstruction" Orientation="Vertical"
+                RelativePanel.Below="valueBuildingKind"
+                RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.AlignRightWithPanel="True">
+            <Interactivity:Interaction.Behaviors>
+                <Behaviors:EventTriggerBehaviorBase EventName="Tapped">
+                    <Behaviors:NavToPageAction Frame="{x:Bind Frame}" 
+                            Page="IsaB.Views.ConstructionFittingOutSelectionPage"
+                            Parameter="{Binding Path=Estate.ID}"/>
+                </Behaviors:EventTriggerBehaviorBase>
+            </Interactivity:Interaction.Behaviors>
 
+            <TextBlock x:Name="labelConstruction"
+                FontSize="{ThemeResource TextStyleLargeFontSize}"              
+                Text="Bauweise"/>
+            <TextBlock x:Name="valueConstruction"
+                FontSize="{ThemeResource TextStyleExtraLargeFontSize}"
+                Text="{Binding Construction}"/>
+            <TextBlock Name="labelFittingOut"
+            FontSize="{ThemeResource TextStyleLargeFontSize}"
+            Text="Ausbauzustand"/>
+            <TextBlock Name="valueFittingOut"
+            FontSize="{ThemeResource TextStyleExtraLargeFontSize}"
+            Text="{Binding Path=FittingOut}"/>
+        </StackPanel>
     </RelativePanel>
 </Page>

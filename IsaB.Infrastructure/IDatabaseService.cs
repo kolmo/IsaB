@@ -1,4 +1,4 @@
-﻿namespace IsaB.QueryStack
+﻿namespace IsaB.Infrastructure
 {
     public interface IDatabaseService
     {

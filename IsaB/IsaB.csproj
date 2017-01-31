@@ -126,23 +126,29 @@
     <Compile Include="Common\DoubleToSolidColorBrushConverter.cs" />
     <Compile Include="Common\FloatToStringConverter.cs" />
     <Compile Include="Common\Int2SolidColorBrushConverter.cs" />
+    <Compile Include="Common\IntegerToDateTimeOffsetConverter.cs" />
+    <Compile Include="Common\ModernizationPointsToRotationAngleConverter.cs" />
     <Compile Include="Common\StringToPlaceholderConverter.cs" />
     <Compile Include="Helper\CommandsToAddEvent.cs" />
     <Compile Include="Helper\CommandWrapper.cs" />
     <Compile Include="Helper\Constants.cs" />
-    <Compile Include="Models\BaseModel.cs" />
-    <Compile Include="Models\GebaeudeBaseModel.cs" />
-    <Compile Include="Models\ImmobilieModel.cs" />
-    <Compile Include="Models\TeilStandard.cs" />
+    <Compile Include="Models\BuildingPartModel.cs" />
+    <Compile Include="Models\ConstructionSelectionModel.cs" />
+    <Compile Include="Models\FittingOutSelectionModel.cs" />
+    <Compile Include="Models\ModernizationModel.cs" />
+    <Compile Include="Models\StandardLevelPropertyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SettingsServices\SettingsService.cs" />
     <Compile Include="ViewModels\BuildingOverviewPageViewModel.cs" />
+    <Compile Include="ViewModels\ConstructionFittingOutSelectionPageViewModel.cs" />
+    <Compile Include="ViewModels\ConstructionYearModernizationPageViewModel.cs" />
     <Compile Include="ViewModels\EstateAddressEditPageViewModel.cs" />
     <Compile Include="ViewModels\EstateDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\EstateLandsizeEditPageViewModel.cs" />
     <Compile Include="ViewModels\EstateListPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
+    <Compile Include="ViewModels\ModernizationDetailSetPageViewModel.cs" />
     <Compile Include="ViewModels\NewEstatePageViewModel.cs" />
     <Compile Include="ViewModels\PictureEditPageViewModel.cs" />
     <Compile Include="ViewModels\PictureGalleryPageViewModel.cs" />
@@ -151,6 +157,15 @@
     <Compile Include="ViewModels\StandardOverviewPageViewModel.cs" />
     <Compile Include="Views\BuildingOverviewPage.xaml.cs">
       <DependentUpon>BuildingOverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConstructionFittingOutSelectionPage.xaml.cs">
+      <DependentUpon>ConstructionFittingOutSelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConstructionYearModernizationPage.xaml.cs">
+      <DependentUpon>ConstructionYearModernizationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModernizationDetailSetPage.xaml.cs">
+      <DependentUpon>ModernizationDetailSetPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NewEstatePage.xaml.cs">
       <DependentUpon>NewEstatePage.xaml</DependentUpon>
@@ -233,6 +248,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Views\BuildingOverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConstructionFittingOutSelectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConstructionYearModernizationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModernizationDetailSetPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

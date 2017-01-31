@@ -5,7 +5,7 @@
     xmlns:local="using:IsaB.Views"
     xmlns:converter="using:IsaB.Common"
      xmlns:controls="using:Template10.Controls"
-   xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:Behaviors="using:Template10.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -121,11 +121,15 @@
         <TextBlock Name="txtBaujahr"
                        RelativePanel.Below="txtLivingSpace"
                        RelativePanel.RightOf="titlePicture"
-                Text="{Binding Estate.Baujahr, ConverterParameter=Baujahr?, Converter={StaticResource StringToPlaceholderConverter}}"/>
-        <TextBlock Name="txtHasModbelernizations"
-                       RelativePanel.Below="txtBaujahr"
-                       RelativePanel.RightOf="titlePicture"
-                       Text="{Binding Path=HasModernizations}"/>
+                Text="{Binding Estate.Baujahr, ConverterParameter=Baujahr?, Converter={StaticResource StringToPlaceholderConverter}}">
+                 <Interactivity:Interaction.Behaviors>
+                    <Behaviors:EventTriggerBehaviorBase EventName="Tapped">
+                        <Behaviors:NavToPageAction Frame="{x:Bind Frame}" 
+                            Page="IsaB.Views.ConstructionYearModernizationPage"
+                            Parameter="{Binding Path=Estate.ID}"/>
+                    </Behaviors:EventTriggerBehaviorBase>
+                </Interactivity:Interaction.Behaviors>
+        </TextBlock>
         <TextBlock Name="picListTitle"
                    RelativePanel.Above="itemListView"
                    RelativePanel.AlignLeftWith="itemListView"

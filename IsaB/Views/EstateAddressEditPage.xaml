@@ -7,11 +7,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Page.Resources>
+    <!--<Page.Resources>
         <Style TargetType="AppBarButton">
             <Setter Property="Foreground" Value="White"/>
         </Style>
-    </Page.Resources>
+    </Page.Resources>-->
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"

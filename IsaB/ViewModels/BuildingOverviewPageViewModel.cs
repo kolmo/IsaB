@@ -33,25 +33,39 @@ namespace IsaB.ViewModels
 
         #region Properties
         private string _buildingKind;
-
+        /// <summary>
+        /// Gebaeudeart
+        /// </summary>
         public string BuildingKind
         {
             get { return _buildingKind; }
             set { Set(ref _buildingKind, value); }
         }
         private string _construction;
-
+        /// <summary>
+        /// Bauweise
+        /// </summary>
         public string Construction
         {
             get { return _construction; }
             set { Set(ref _construction, value); }
         }
         private string _fittingOut;
-
+        /// <summary>
+        /// Ausbauzustand
+        /// </summary>
         public string FittingOut
         {
             get { return _fittingOut; }
             set { Set(ref _fittingOut, value); }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public ImmobilieEntity Estate
+        {
+            get { return _estate; }
+            set { Set(ref _estate, value); }
         }
 
         #endregion
@@ -64,12 +78,12 @@ namespace IsaB.ViewModels
                 if (int.TryParse((string)parameter, out estateID))
                 {
                     _estateID = estateID;
-                    _estate = _estateService.GetEstate(_estateID);
-                    if (_estate != null)
+                    Estate = _estateService.GetEstate(_estateID);
+                    if (Estate != null)
                     {
-                        BuildingKind = _staticsService.BuildingKinds.FirstOrDefault(x => x.ID == _estate.GebaeudeartId)?.Bezeichnung;
-                        Construction = _staticsService.Constructions.FirstOrDefault(x => x.ID == _estate.BauweiseId)?.Bezeichnung;
-                        FittingOut = _staticsService.FittingOuts.FirstOrDefault(x => x.ID == _estate.AusbauzustandId)?.Bezeichnung;
+                        BuildingKind = _staticsService.BuildingKinds.FirstOrDefault(x => x.ID == Estate.GebaeudeartId)?.Bezeichnung;
+                        Construction = _staticsService.Constructions.FirstOrDefault(x => x.ID == Estate.BauweiseId)?.Bezeichnung;
+                        FittingOut = _staticsService.FittingOuts.FirstOrDefault(x => x.ID == Estate.AusbauzustandId)?.Bezeichnung;
                     }
                 }
             }

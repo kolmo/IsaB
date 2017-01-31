@@ -13,6 +13,9 @@
             <converter:BooleanToVisibilityConverter x:Key="b2vc"/>
             <converter:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
             <converter:StringToPlaceholderConverter x:Key="StringToPlaceholderConverter"/>
+            <Style TargetType="AppBarButton">
+                <Setter Property="Foreground" Value="{ThemeResource ContrastColorBrush}"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 

@@ -1,5 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
-using static IsaB.ViewModels.StandardOverviewPageViewModel;
+﻿using IsaB.Models;
+using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -18,10 +18,10 @@ namespace IsaB.Views
 
         private void lvPartLevels_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ListEntry part = e.ClickedItem as ListEntry;
+            BuildingPartModel part = e.ClickedItem as BuildingPartModel;
             if (part != null)
             {
-                App.Current.NavigationService.Navigate(typeof(Views.StandardLevelPropSelectionPage), part);
+                Template10.Common.BootStrapper.Current.NavigationService.Navigate(typeof(Views.StandardLevelPropSelectionPage), part);
             }
         }
     }

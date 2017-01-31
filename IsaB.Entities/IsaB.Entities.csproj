@@ -129,6 +129,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StandardLevelPropertyEntity.cs" />
     <Compile Include="PartStandardEntiy.cs" />
+    <Compile Include="StandardTableEntity.cs" />
     <Compile Include="WaegungsanteilEntity.cs" />
     <EmbeddedResource Include="Properties\IsaB.Entities.rd.xml" />
   </ItemGroup>

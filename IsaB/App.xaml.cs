@@ -71,6 +71,9 @@ namespace IsaB
             Container.Register<INavigable, StandardLevelPropSelectionPageViewModel>(typeof(StandardLevelPropSelectionPage).FullName);
             Container.Register<INavigable, BuildingOverviewPageViewModel>(typeof(BuildingOverviewPage).FullName);
             Container.Register<INavigable, NewEstatePageViewModel>(typeof(NewEstatePage).FullName);
+            Container.Register<INavigable, ConstructionFittingOutSelectionPageViewModel>(typeof(ConstructionFittingOutSelectionPage).FullName);
+            Container.Register<INavigable, ConstructionYearModernizationPageViewModel>(typeof(ConstructionYearModernizationPage).FullName);
+            Container.Register<INavigable, ModernizationDetailSetPageViewModel>(typeof(ModernizationDetailSetPage).FullName);
             Container.Register<IQueryModelDatabase, QueryStack.QueryModelDatabase>(new PerContainerLifetime());
             Container.Register<IEstateService, EstateService>();
             Container.Register<IStaticsService, StaticsService>(new PerContainerLifetime());
@@ -113,6 +116,16 @@ namespace IsaB
             bus.RegisterSaga<DeletePictureCommand, DeletePictureSaga>();
             bus.RegisterSaga<SavePartPropSettingCommand, SavePartPropSettingSaga>();
             bus.RegisterSaga<DeleteEstateCommand, DeleteEstateSaga>();
+            bus.RegisterSaga<SaveEstateConstructionCommand, SaveEstateConstructionSaga>();
+            bus.RegisterSaga<SaveEstateFittingOutCommand, SaveEstateFittingOutSaga>();
+            bus.RegisterSaga<SaveEstateConstructionYearCommand, SaveEstateConstructionYearSaga>();
+            bus.RegisterSaga<SaveStandardManuallySetCommand, SaveStandardManuallySetSaga>();
+            bus.RegisterSaga<SaveModernizationCommand, SaveModernizationSaga>();
+            Container.Register(typeof(SaveModernizationSaga));
+            Container.Register(typeof(SaveStandardManuallySetSaga));
+            Container.Register(typeof(SaveEstateConstructionYearSaga));
+            Container.Register(typeof(SaveEstateFittingOutSaga));
+            Container.Register(typeof(SaveEstateConstructionSaga));
             Container.Register(typeof(SavePartPropSettingSaga));
             Container.Register(typeof(CreateNewEstateSaga));
             Container.Register(typeof(SaveEstateAddressSaga));

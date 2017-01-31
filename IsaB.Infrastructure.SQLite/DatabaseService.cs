@@ -1,7 +1,8 @@
 ﻿using IsaB.Entities;
 using System.Collections.Generic;
+using SQ = SQLite;
 
-namespace IsaB.QueryStack
+namespace IsaB.Infrastructure.SQLite
 {
     public class DatabaseService : IDatabaseService
     {
@@ -20,6 +21,8 @@ namespace IsaB.QueryStack
         private List<string> GetSeedStringFromList()
         {
             List<string> builder2 = new List<string>() {
+            @"INSERT INTO `StandardTable` (ID, Description, MinimumLevel, MaximumLevel) VALUES(1,'Freistehende Ein- und Zweifamilienhäuser, Doppelhäuser, Reihenhäuser', 1, 5);",
+            @"INSERT INTO `StandardTable` (ID, Description, MinimumLevel, MaximumLevel) VALUES(2,'Mehrfamilienhäuser', 3, 5);",
             @"INSERT INTO `StandardLevelProperty` (ID, Stufe, Beschreibung, GebTeilId, StdTabellenId) VALUES(1, 1, 'Holzfachwerk, Ziegelmauerwerk', 1, 1);",
             @"INSERT INTO `StandardLevelProperty` (ID, Stufe, Beschreibung, GebTeilId, StdTabellenId) VALUES(2, 1, 'Fugenglattstrich, Putz, Verkleidung mit Faserzementplatten, Bitumenschindeln oder einfachen Kunststoffplatten', 1, 1);",
             @"INSERT INTO `StandardLevelProperty` (ID, Stufe, Beschreibung, GebTeilId, StdTabellenId) VALUES(3, 1, 'kein oder deutlich nicht zeitgemäßer Wärmeschutz (vor ca. 1980)', 1, 1);",
@@ -472,8 +475,9 @@ namespace IsaB.QueryStack
         {
             if (!CheckDbExistence(dbPath))
             {
-                using (var db = new SQLite.SQLiteConnection(dbPath))
+                using (var db = new SQ.SQLiteConnection(dbPath))
                 {
+                    db.CreateTable<StandardTableEntity>();
                     db.CreateTable<GebaeudeartEntity>();
                     db.CreateTable<ImmobilieEntity>();
                     db.CreateTable<GebBauweiseEntity>();
@@ -509,11 +513,11 @@ namespace IsaB.QueryStack
             bool dbExists = true;
             try
             {
-                using (var db = new SQLite.SQLiteConnection(dbPath, SQLite.SQLiteOpenFlags.ReadWrite))
+                using (var db = new SQ.SQLiteConnection(dbPath, SQ.SQLiteOpenFlags.ReadWrite))
                 {
                 }
             }
-            catch (SQLite.SQLiteException)
+            catch (SQ.SQLiteException)
             {
                 dbExists = false;
             }

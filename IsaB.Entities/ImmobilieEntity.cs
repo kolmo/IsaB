@@ -38,46 +38,46 @@ namespace IsaB.Entities
             }
         }
 
-        private DateTime? _verfuegbarAb;
+        private double? _standardManuallySet;
         /// <summary>
-        /// Ab wann ist die Immobilie frei
+        /// Gets or sets the GewichtetStandard.
         /// </summary>
-        public DateTime? VerfuegbarAb
+        public double? StandardManuallySet
         {
-            get { return _verfuegbarAb; }
+            get { return _standardManuallySet; }
             set
             {
-                if (_verfuegbarAb != value)
+                if (_standardManuallySet != value)
                 {
-                    _verfuegbarAb = value;
+                    _standardManuallySet = value;
+                }
+            }
+        }
+        private double? _standardCalculated;
+        /// <summary>
+        /// 
+        /// </summary>
+        public double? StandardCalculated
+        {
+            get { return _standardCalculated; }
+            set
+            {
+                if (_standardCalculated!= value)
+                {
+                    _standardCalculated = value;
                 }
             }
         }
 
-        private double _globalStandard;
-        /// <summary>
-        /// Gets or sets the GewichtetStandard.
-        /// </summary>
-        public double GlobalStandard
-        {
-            get { return _globalStandard; }
-            set
-            {
-                if (_globalStandard != value)
-                {
-                    _globalStandard = value;
-                }
-            }
-        }
-        private bool? _useExpertStandardSettings;
+        private bool? _useStandardCalculated;
         /// <summary>
         /// Zeigt an ob für das Gebäude der Standardwert aus den detaillierten Festlegungen
         /// der betreffenden Standardmerkmale ermittelt werden soll.
         /// </summary>
-        public bool? UseExpertStandardSettings
+        public bool? UseStandardCalculated
         {
-            get { return _useExpertStandardSettings; }
-            set { _useExpertStandardSettings = value; }
+            get { return _useStandardCalculated; }
+            set { _useStandardCalculated = value; }
         }
 
         /// <summary>

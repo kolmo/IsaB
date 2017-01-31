@@ -76,7 +76,7 @@ namespace IsaB.ViewModels
                 Estate = _estateService.GetEstate( _estateID);
                 var buildingKinds = _staticsService.BuildingKinds;
                 BuildingKind = buildingKinds?.FirstOrDefault(x => x.ID == Estate.GebaeudeartId)?.Bezeichnung;
-                HasModernizations = _estateService.AllModernizations.Any(x => x.ImmoID == _estateID).ToString();
+                HasModernizations = _estateService.EstateModernizations.Any(x => x.ImmoID == _estateID).ToString();
                 LoadPictures();
             }
             return Task.CompletedTask;

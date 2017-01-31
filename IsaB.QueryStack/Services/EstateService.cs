@@ -21,11 +21,11 @@ namespace IsaB.QueryStack.Services
             }
         }
 
-        public IQueryable<ImmobilieModernisierungEntity> AllModernizations
+        public IQueryable<ImmobilieModernisierungEntity> EstateModernizations
         {
             get
             {
-                return _dbService.Modernizations.AsQueryable();
+                return _dbService.EstateModernizations.AsQueryable();
             }
         }
 

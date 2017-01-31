@@ -10,7 +10,7 @@ namespace IsaB.QueryStack
     public interface IEstateService
     {
         IQueryable<ImmobilieEntity> AllEStates { get; }
-        IQueryable<ImmobilieModernisierungEntity> AllModernizations { get; }
+        IQueryable<ImmobilieModernisierungEntity> EstateModernizations { get; }
         ImmobilieEntity GetEstate(int id);
         IList<ImmobilieBildEntity> GetEstatePics(int estateID);
         ImmobilieBildEntity GetEstatePic(int picID);

@@ -111,17 +111,27 @@
     <Compile Include="Commands\DeleteEstateCommand.cs" />
     <Compile Include="Commands\DeletePictureCommand.cs" />
     <Compile Include="Commands\SaveEstateAddressCommand.cs" />
+    <Compile Include="Commands\SaveEstateConstructionCommand.cs" />
+    <Compile Include="Commands\SaveEstateConstructionYearCommand.cs" />
+    <Compile Include="Commands\SaveEstateFittingOutCommand.cs" />
     <Compile Include="Commands\SaveEstateLandsizeCommand.cs" />
+    <Compile Include="Commands\SaveModernizationCommand.cs" />
     <Compile Include="Commands\SavePartPropSettingCommand.cs" />
     <Compile Include="Commands\SavePictureCommand.cs" />
+    <Compile Include="Commands\SaveStandardManuallySetCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sagas\DeleteEstateSaga.cs" />
     <Compile Include="Sagas\DeletePictureSaga.cs" />
     <Compile Include="Sagas\SaveEstateAddressSaga.cs" />
     <Compile Include="Sagas\CreateNewEstateSaga.cs" />
+    <Compile Include="Sagas\SaveEstateConstructionSaga.cs" />
+    <Compile Include="Sagas\SaveEstateConstructionYearSaga.cs" />
+    <Compile Include="Sagas\SaveEstateFittingOutSaga.cs" />
     <Compile Include="Sagas\SaveEstateLandsizeSaga.cs" />
+    <Compile Include="Sagas\SaveModernizationSaga.cs" />
     <Compile Include="Sagas\SavePartPropSettingSaga.cs" />
     <Compile Include="Sagas\SavePictureSaga.cs" />
+    <Compile Include="Sagas\SaveStandardManuallySetSaga.cs" />
     <EmbeddedResource Include="Properties\IsaB.CommandStack.rd.xml" />
   </ItemGroup>
   <ItemGroup>

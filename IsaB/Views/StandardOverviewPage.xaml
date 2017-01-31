@@ -22,7 +22,9 @@
                     RelativePanel.Below="labelPauschalwert"
                     RelativePanel.AlignLeftWithPanel="True"
                 RelativePanel.AlignRightWithPanel="True"
-                Minimum="1" Maximum="5" Value="{Binding Path=GlobalStandard, Mode=TwoWay}"
+                Maximum="{Binding Path=MaximumLevelManually}"
+                Minimum="{Binding Path=MinimumLevelManually}" 
+                Value="{Binding Path=StandardManuallySet, Mode=TwoWay}"
                 >
         </Slider>
         <ListView Name="lvPartLevels"

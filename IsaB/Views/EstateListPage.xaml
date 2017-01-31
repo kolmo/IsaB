@@ -40,7 +40,6 @@
                              RelativePanel.AlignTopWithPanel="True" Text="Immobilienliste">
             <controls:PageHeader.PrimaryCommands>
                 <AppBarButton Click="AppBarButton_Click" Label="Neu" Icon="Add" />
-                <AppBarButton  Label="Löschen" />
             </controls:PageHeader.PrimaryCommands>
             <controls:PageHeader.SecondaryCommands>
                 <AppBarButton  Label="Settings" />

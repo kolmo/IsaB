@@ -107,8 +107,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseService.cs" />
-    <Compile Include="IDatabaseService.cs" />
     <Compile Include="IEstateService.cs" />
     <Compile Include="IQueryModelDatabase.cs" />
     <Compile Include="IStaticsService.cs" />

@@ -113,6 +113,7 @@
     <Compile Include="IAggregate.cs" />
     <Compile Include="IAmStartedBy.cs" />
     <Compile Include="IBus.cs" />
+    <Compile Include="IDatabaseService.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IEventStore.cs" />
     <Compile Include="IHandleMessage.cs" />
