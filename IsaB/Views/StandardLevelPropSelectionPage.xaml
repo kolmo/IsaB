@@ -17,6 +17,11 @@
                              RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
                              RelativePanel.AlignTopWithPanel="True" Text="{Binding Path=Title}">
+            <controls:PageHeader.PrimaryCommands>
+                <AppBarButton Label="Speichern"
+                              Command="{Binding Path=SaveCommand}"
+                              Icon="Save"/>
+            </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
         <ListView Name="selctionListView"
           RelativePanel.Below="pageHeader"

@@ -13,6 +13,11 @@
                              RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
                              RelativePanel.AlignTopWithPanel="True" Text="Bauweise und Ausbauzustand">
+            <controls:PageHeader.PrimaryCommands>
+                <AppBarButton Label="Speichern"
+                              Command="{Binding Path=SaveCommand}"
+                              Icon="Save"/>
+            </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
         <ListView Name="constructionList"
                   Header="Bauweise"

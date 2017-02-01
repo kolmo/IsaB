@@ -142,6 +142,7 @@
     <Compile Include="ViewModels\BuildingOverviewPageViewModel.cs" />
     <Compile Include="ViewModels\ConstructionFittingOutSelectionPageViewModel.cs" />
     <Compile Include="ViewModels\ConstructionYearModernizationPageViewModel.cs" />
+    <Compile Include="ViewModels\EditViewModelBase.cs" />
     <Compile Include="ViewModels\EstateAddressEditPageViewModel.cs" />
     <Compile Include="ViewModels\EstateDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\EstateLandsizeEditPageViewModel.cs" />

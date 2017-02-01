@@ -10,17 +10,27 @@ using Windows.UI.Xaml.Navigation;
 
 namespace IsaB.ViewModels
 {
-    public class StandardLevelPropSelectionPageViewModel : ViewModelBase
+    public class StandardLevelPropSelectionPageViewModel : EditViewModelBase
     {
+        #region Private members
         private readonly IStaticsService _staticsService;
         private readonly IEstateService _estateService;
         private readonly IBus _bus;
+        private List<StandardLevelPropertyModel> _standardProperties;
+        #endregion
+
+        #region Constructor
         public StandardLevelPropSelectionPageViewModel(IEstateService estateService, IStaticsService staticsService, IBus bus)
         {
             _staticsService = staticsService;
             _estateService = estateService;
             _bus = bus;
+            CommandBag.Add(SaveCommand = new DelegateCommand(SaveAction, () => HasChanges));
         }
+        #endregion
+
+        #region Properties
+        public DelegateCommand SaveCommand { get; }
         private object _stdLevelProperties;
 
         public object StdLevelProperties
@@ -29,7 +39,6 @@ namespace IsaB.ViewModels
             set { Set(ref _stdLevelProperties, value); }
         }
 
-
         private string _title;
         public string Title
         {
@@ -37,18 +46,21 @@ namespace IsaB.ViewModels
             set { Set(ref _title, value); }
         }
 
+        #endregion
+
+        #region Overrides
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             BuildingPartModel part = parameter as BuildingPartModel;
             if (part != null)
             {
-                Title = part.Name;
+                _title = part.Name;
                 var query = from s in _staticsService.StandardLevelProperties
                             orderby s.Stufe descending
                             where s.GebTeilId == part.PartId && s.StdTabellenId == part.StdTableId
                             select s;
                 var selectedProps = _estateService.EstateStandardLevelPropertyEntities.Where(x => x.EstateId == part.EstateId).ToList();
-                List<StandardLevelPropertyModel> standardProperties = new List<StandardLevelPropertyModel>();
+                _standardProperties = new List<StandardLevelPropertyModel>();
                 foreach (var item in query)
                 {
                     var exp = selectedProps.FirstOrDefault(x => x.StandardLevelPropertyId == item.ID);
@@ -62,26 +74,43 @@ namespace IsaB.ViewModels
                     }
                     var pi = new StandardLevelPropertyModel(item, exp);
                     pi.PropertyChanged += Pi_PropertyChanged;
-                    standardProperties.Add(pi);
+                    _standardProperties.Add(pi);
                 }
-                var grpQuery = from s in standardProperties
+                var grpQuery = from s in _standardProperties
                                group s by s.Level into grp
                                orderby grp.Key descending
                                select grp;
-                StdLevelProperties = grpQuery;
+                _stdLevelProperties = grpQuery;
+                RaisePropertyChanged(nameof(Title));
+                RaisePropertyChanged(nameof(StdLevelProperties));
             }
             return Task.CompletedTask;
         }
 
+        #endregion
+        #region Event Handler
         private void Pi_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            StandardLevelPropertyModel pi = sender as StandardLevelPropertyModel;
-            if (pi != null)
+            if (_standardProperties != null)
             {
-                CommandStack.Commands.SavePartPropSettingCommand cmd = new CommandStack.Commands.SavePartPropSettingCommand();
-                cmd.EstateStdLevelProp = pi.EstateStandardLevelProp;
-                _bus.Send(cmd);
+                HasChanges = _standardProperties.Any(x => x.HasChanges);
             }
         }
+
+        #endregion
+
+        #region Private Methods
+        private void SaveAction()
+        {
+            if (_standardProperties?.Any(x => x.HasChanges) == true)
+            {
+                CommandStack.Commands.SavePartPropSettingCommand cmd = new CommandStack.Commands.SavePartPropSettingCommand();
+                cmd.EstateStdLevelProp = _standardProperties.Where(x => x.HasChanges).Select(x => x.EstateStandardLevelProp).ToList();
+                _bus.Send(cmd);
+            }
+            NavigationService.GoBack();
+        }
+        #endregion
+
     }
 }

@@ -3,7 +3,7 @@ using Template10.Mvvm;
 
 namespace IsaB.Models
 {
-    public class StandardLevelPropertyModel : BindableBase
+    public class StandardLevelPropertyModel : ViewModels.EditViewModelBase
     {
         public StandardLevelPropertyModel(StandardLevelPropertyEntity e, EstateStandardLevelPropertyEntity exs)
         {

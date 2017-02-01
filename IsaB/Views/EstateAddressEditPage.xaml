@@ -7,11 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <!--<Page.Resources>
-        <Style TargetType="AppBarButton">
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-    </Page.Resources>-->
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
@@ -28,10 +23,10 @@
                 RelativePanel.Below="pageHeader">
             <TextBox Header="Strasse"              
                 Text="{Binding Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Margin="0,10,0,0" Header="Ort"              
-                Text="{Binding City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Margin="0,10,0,0" Header="PLZ"              
                 Text="{Binding Postcode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Margin="0,10,0,0" Header="Ort"              
+                Text="{Binding City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
     </RelativePanel>
 </Page>

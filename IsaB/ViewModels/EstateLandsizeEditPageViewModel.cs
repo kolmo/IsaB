@@ -9,38 +9,53 @@ using Windows.UI.Xaml.Navigation;
 
 namespace IsaB.ViewModels
 {
-    public class EstateLandsizeEditPageViewModel : ViewModelBase
+    public class EstateLandsizeEditPageViewModel : EditViewModelBase
     {
+        #region Private members
         private ImmobilieEntity _estate;
         private int _estateID;
         private readonly IEstateService _estateService;
         private readonly IBus _bus;
+
+        #endregion
+
+        #region Constructor
         public EstateLandsizeEditPageViewModel(IEstateService estateService, IBus bus)
         {
             _estateService = estateService;
             _bus = bus;
-            SaveLandsize = new DelegateCommand(SaveLandsizeAction);
+            CommandBag.Add(SaveLandsize = new DelegateCommand(SaveLandsizeAction, () => HasChanges));
         }
+        #endregion
 
         public DelegateCommand SaveLandsize { get; }
-        private float? _landisze;
+        private float? _landsize;
         public float? Landsize
         {
-            get { return _landisze; }
-            set { Set(ref _landisze, value); }
+            get { return _landsize; }
+            set
+            {
+                Set(ref _landsize, value);
+            }
         }
         private float? _standardGroundValue;
         public float? StandardGroundValue
         {
             get { return _standardGroundValue; }
-            set { Set(ref _standardGroundValue, value); }
+            set
+            {
+                Set(ref _standardGroundValue, value);
+            }
         }
         private float? _livingSpace;
 
         public float? LivingSpace
         {
             get { return _livingSpace; }
-            set { Set(ref _livingSpace, value); }
+            set
+            {
+                Set(ref _livingSpace, value);
+            }
         }
 
         #region Overrides
@@ -55,9 +70,12 @@ namespace IsaB.ViewModels
                     _estate = _estateService.GetEstate(_estateID);
                     if (_estate != null)
                     {
-                        Landsize = _estate.Grundstuecksflaeche;
-                        StandardGroundValue = _estate.Bodenrichtwert;
-                        LivingSpace = _estate.Bruttogrundflaeche;
+                        _landsize = _estate.Grundstuecksflaeche;
+                        _standardGroundValue = _estate.Bodenrichtwert;
+                        _livingSpace = _estate.Bruttogrundflaeche;
+                        RaisePropertyChanged(nameof(Landsize));
+                        RaisePropertyChanged(nameof(StandardGroundValue));
+                        RaisePropertyChanged(nameof(LivingSpace));
                     }
                 }
             }
@@ -76,6 +94,8 @@ namespace IsaB.ViewModels
                 LivingSpace = LivingSpace
             };
             _bus.Send(cmd);
+            HasChanges = false;
+            NavigationService.GoBack();
         }
         #endregion
     }

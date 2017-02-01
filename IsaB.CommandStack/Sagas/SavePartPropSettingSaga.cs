@@ -1,5 +1,6 @@
 ﻿using IsaB.CommandStack.Commands;
 using IsaB.Infrastructure;
+using System.Linq;
 
 namespace IsaB.CommandStack.Sagas
 {
@@ -11,10 +12,7 @@ namespace IsaB.CommandStack.Sagas
 
         public void Handle(SavePartPropSettingCommand message)
         {
-            if (message!= null)
-            {
-                Repository.Save(message.EstateStdLevelProp);
-            }
+            message?.EstateStdLevelProp?.ToList().ForEach(x => Repository.Save(x));
         }
     }
 }

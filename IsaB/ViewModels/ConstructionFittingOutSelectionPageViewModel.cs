@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace IsaB.ViewModels
 {
-    public class ConstructionFittingOutSelectionPageViewModel : ViewModelBase
+    public class ConstructionFittingOutSelectionPageViewModel : EditViewModelBase
     {
         #region Private members
         IBus _bus;
@@ -29,10 +29,12 @@ namespace IsaB.ViewModels
             _bus = bus;
             _estateService = estateService;
             _staticsService = staticsService;
+            CommandBag.Add(SaveCommand = new DelegateCommand(SaveAction, () => HasChanges));
         }
         #endregion
 
         #region Properties
+        public DelegateCommand SaveCommand { get; }
         private IList<ConstructionSelectionModel> _constructions;
         /// <summary>
         /// 
@@ -66,26 +68,25 @@ namespace IsaB.ViewModels
                     var estate = _estateService.AllEStates.Single(x => x.ID == _estateID);
                     // Construction-Setup
                     var constructions = _staticsService.ConstructionsByBuildingKind(estate.GebaeudeartId);
-                    var constructionList = new List<ConstructionSelectionModel>();
+                    _constructions = new List<ConstructionSelectionModel>();
                     foreach (var item in constructions)
                     {
-                        ConstructionSelectionModel model = new ConstructionSelectionModel(item);
-                        model.IsSelected = item.ID == estate.BauweiseId;
+                        ConstructionSelectionModel model = new ConstructionSelectionModel(item, item.ID == estate.BauweiseId);
                         model.PropertyChanged += ConstructionModel_PropertyChanged;
-                        constructionList.Add(model);
+                        _constructions.Add(model);
                     }
-                    Constructions = constructionList;
+                    RaisePropertyChanged(nameof(Constructions));
                     // FittingOut-Setup
                     var fittingOuts = _staticsService.FittingOutsByBuildingKind(estate.GebaeudeartId);
-                    var fittingOutList = new List<FittingOutSelectionModel>();
+                    _fittingOuts = new List<FittingOutSelectionModel>();
                     foreach (var item in fittingOuts)
                     {
-                        FittingOutSelectionModel model = new FittingOutSelectionModel(item);
-                        model.IsSelected = item.ID == estate.AusbauzustandId;
+                        FittingOutSelectionModel model = new FittingOutSelectionModel(item, item.ID == estate.AusbauzustandId);
                         model.PropertyChanged += FittingOutModel_PropertyChanged;
-                        fittingOutList.Add(model);
+                        _fittingOuts.Add(model);
                     }
-                    FittingOuts = fittingOutList;
+                    RaisePropertyChanged(nameof(FittingOuts));
+                    this.HasChanges = false;
                 }
             }
             return Task.CompletedTask;
@@ -93,21 +94,22 @@ namespace IsaB.ViewModels
 
         private void FittingOutModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            FittingOutSelectionModel model = sender as FittingOutSelectionModel;
-            if (model?.IsSelected == true)
-            {
-                _bus.Send(new CommandStack.Commands.SaveEstateFittingOutCommand
-                {
-                    EstateId = _estateID,
-                    FittingOutId = model.Entity.ID
-                });
-            }
+            if (!HasChanges)
+                HasChanges = FittingOuts.Any(x => x.HasChanges);
         }
 
         private void ConstructionModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            ConstructionSelectionModel model = sender as ConstructionSelectionModel;
-            if (model?.IsSelected == true)
+            if (!HasChanges)
+                HasChanges = Constructions.Any(x => x.HasChanges);
+        }
+        #endregion
+
+        #region Private Methods
+        private void SaveAction()
+        {
+            ConstructionSelectionModel model = Constructions.FirstOrDefault(x => x.IsSelected && x.HasChanges);
+            if (model != null)
             {
                 _bus.Send(new CommandStack.Commands.SaveEstateConstructionCommand
                 {
@@ -115,6 +117,16 @@ namespace IsaB.ViewModels
                     ConstructionId = model.Entity.ID
                 });
             }
+            FittingOutSelectionModel fittingOutModel = FittingOuts.FirstOrDefault(x => x.IsSelected && x.HasChanges);
+            if (fittingOutModel != null)
+            {
+                _bus.Send(new CommandStack.Commands.SaveEstateFittingOutCommand
+                {
+                    EstateId = _estateID,
+                    FittingOutId = fittingOutModel.Entity.ID
+                });
+            }
+            NavigationService.GoBack();
         }
         #endregion
 

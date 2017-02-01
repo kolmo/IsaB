@@ -1,27 +1,25 @@
 ﻿using IsaB.Infrastructure;
 using IsaB.QueryStack;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
-using System.Runtime.CompilerServices;
 using IsaB.Models;
 using System.Collections.ObjectModel;
+using IsaB.CommandStack.Commands;
 
 namespace IsaB.ViewModels
 {
-    public class ConstructionYearModernizationPageViewModel : ViewModelBase
+    public class ConstructionYearModernizationPageViewModel : EditViewModelBase
     {
         #region Private members
-        private bool _isInitializing = false;
         IBus _bus;
         private int _estateID;
         private readonly IEstateService _estateService;
         private readonly IStaticsService _staticsService;
         #endregion
+
         #region Construction
         public ConstructionYearModernizationPageViewModel(
             IBus bus,
@@ -31,10 +29,12 @@ namespace IsaB.ViewModels
             _bus = bus;
             _estateService = estateService;
             _staticsService = staticsService;
+            CommandBag.Add(SaveConstructionYearCommand = new DelegateCommand(SaveConstructionYearAction, ()=>HasChanges));
         }
         #endregion
 
         #region Properties
+        public DelegateCommand SaveConstructionYearCommand { get; }
         private int? _constructionYear;
         /// <summary>
         /// 
@@ -49,12 +49,11 @@ namespace IsaB.ViewModels
         /// </summary>
         public ObservableCollection<ModernizationModel> Modernizations { get; } = new ObservableCollection<ModernizationModel>();
 
-
         #endregion
-        #region overrides
+
+        #region Overrides
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            _isInitializing = true;
             if (parameter != null && parameter is string)
             {
                 int estateID;
@@ -62,7 +61,7 @@ namespace IsaB.ViewModels
                 {
                     _estateID = estateID;
                     var estate = _estateService.GetEstate(_estateID);
-                    ConstructionYear = estate.Baujahr;
+                    _constructionYear = estate.Baujahr;
                     var modernizations = _estateService.EstateModernizations.Where(x => x.ImmoID == _estateID).ToList();
                     foreach (var item in _staticsService.Modernizations)
                     {
@@ -81,21 +80,21 @@ namespace IsaB.ViewModels
                         };
                         Modernizations.Add(model);
                     }
+                    RaisePropertyChanged(nameof(ConstructionYear));
                 }
             }
-            _isInitializing = false;
             return Task.CompletedTask;
         }
-        public override void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        #endregion
+
+        #region Private methods
+        private void SaveConstructionYearAction()
         {
-            if (!_isInitializing)
-            {
-                CommandStack.Commands.SaveEstateConstructionYearCommand cmd = new CommandStack.Commands.SaveEstateConstructionYearCommand();
-                cmd.EstateId = _estateID;
-                cmd.ConstructionYear = ConstructionYear;
-                _bus.Send(cmd);
-            }
-            base.RaisePropertyChanged(propertyName);
+            SaveEstateConstructionYearCommand cmd = new SaveEstateConstructionYearCommand();
+            cmd.EstateId = _estateID;
+            cmd.ConstructionYear = ConstructionYear;
+            _bus.Send(cmd);
+            HasChanges = false;
         }
         #endregion
     }

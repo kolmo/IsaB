@@ -16,6 +16,11 @@
                              RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
                              RelativePanel.AlignTopWithPanel="True" Text="Modernisierungsgrad festlegen">
+            <controls:PageHeader.PrimaryCommands>
+                <AppBarButton Label="Speichern"
+                              Command="{Binding Path=SaveCommand}"
+                              Icon="Save"/>
+            </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
         <TextBlock Name="modernElementTitle"
            RelativePanel.Below="pageHeader"
@@ -42,9 +47,6 @@
                  RelativePanel.Below="slStandard"
                  RelativePanel.AlignLeftWithPanel="True"
                  RelativePanel.AlignRightWithPanel="True"
-                 Text="{Binding Path=Comment, Mode=TwoWay}"/>
-        <Button RelativePanel.Below="commentTextbox"
-                RelativePanel.AlignLeftWith="commentTextbox"
-            Content="Speichern" Command="{Binding Path=SaveCommand}"/>
+                 Text="{Binding Path=Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </RelativePanel>
 </Page>

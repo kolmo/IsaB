@@ -13,10 +13,9 @@ using IsaB.CommandStack.Commands;
 
 namespace IsaB.ViewModels
 {
-    public class ModernizationDetailSetPageViewModel : ViewModelBase
+    public class ModernizationDetailSetPageViewModel : EditViewModelBase
     {
         #region Private members
-        private bool _isInitializing = false;
         private int _estateId;
         private int _modernElementId;
         private Entities.ImmobilieModernisierungEntity _estateModernization = null;
@@ -34,7 +33,7 @@ namespace IsaB.ViewModels
             _bus = bus;
             _staticsServcie = staticsService;
             _estateService = estateService;
-            SaveCommand = new DelegateCommand(SaveAction);
+            CommandBag.Add(SaveCommand = new DelegateCommand(SaveAction, () => HasChanges));
         }
         #endregion
 
@@ -69,7 +68,7 @@ namespace IsaB.ViewModels
             set { Set(ref _maximumPoints, value); }
         }
 
-        private Tuple<double,double?> _modernization;
+        private Tuple<double, double?> _modernization;
         /// <summary>
         /// 
         /// </summary>
@@ -92,14 +91,13 @@ namespace IsaB.ViewModels
         #region Overrides
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            _isInitializing = true;
             ModernizationModel mmodel = parameter as ModernizationModel;
-            if (mmodel!= null)
+            if (mmodel != null)
             {
                 _modernElementId = mmodel.ModernElementId;
                 _estateId = mmodel.EstateId;
-                _estateModernization = _estateService.EstateModernizations.FirstOrDefault(x=>x.ImmoID==_estateId && x.ModernId == _modernElementId);
-                if (_estateModernization==null)
+                _estateModernization = _estateService.EstateModernizations.FirstOrDefault(x => x.ImmoID == _estateId && x.ModernId == _modernElementId);
+                if (_estateModernization == null)
                 {
                     _estateModernization = new Entities.ImmobilieModernisierungEntity()
                     {
@@ -107,18 +105,21 @@ namespace IsaB.ViewModels
                         ModernId = _modernElementId
                     };
                 }
-                ModernElementTitle = mmodel.Description;
-                MaximumPoints = mmodel.MaximumPoints;
-                Points = mmodel.PointsSet;
-                Comment = _estateModernization.Bemerkung;
+                _modernElementTitle = mmodel.Description;
+                _maximumPoints = mmodel.MaximumPoints;
+                _points = mmodel.PointsSet;
+                _comment = _estateModernization.Bemerkung;
+                RaisePropertyChanged(nameof(ModernElementTitle));
+                RaisePropertyChanged(nameof(MaximumPoints));
+                RaisePropertyChanged(nameof(Points));
+                RaisePropertyChanged(nameof(Comment));
                 SetModernization();
             }
-            _isInitializing = false;
             return Task.CompletedTask;
         }
         public override void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (!_isInitializing && propertyName == nameof(Points))
+            if (propertyName == nameof(Points))
             {
                 SetModernization();
             }
@@ -133,14 +134,15 @@ namespace IsaB.ViewModels
             _estateModernization.Bemerkung = Comment;
             SaveModernizationCommand cmd = new SaveModernizationCommand()
             {
-               EstateModernization = _estateModernization
+                EstateModernization = _estateModernization
             };
             _bus.Send(cmd);
             NavigationService.GoBack();
         }
         private void SetModernization()
         {
-            Modernization = new Tuple<double, double?>(MaximumPoints, Points);
+            _modernization = new Tuple<double, double?>(MaximumPoints, Points);
+            RaisePropertyChanged(nameof(Modernization));
         }
         #endregion
     }

@@ -3,12 +3,13 @@ using Template10.Mvvm;
 
 namespace IsaB.Models
 {
-    public class FittingOutSelectionModel : BindableBase
+    public class FittingOutSelectionModel : ViewModels.EditViewModelBase
     {
         #region constructors
-        public FittingOutSelectionModel(GebAusbauzustandEntity construction)
+        public FittingOutSelectionModel(GebAusbauzustandEntity construction, bool isSelected)
         {
             Entity = construction;
+            _isSelected = isSelected;
         }
         #endregion
 

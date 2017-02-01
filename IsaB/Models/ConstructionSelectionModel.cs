@@ -3,12 +3,13 @@ using Template10.Mvvm;
 
 namespace IsaB.Models
 {
-    public class ConstructionSelectionModel : BindableBase
+    public class ConstructionSelectionModel : ViewModels.EditViewModelBase
     {
         #region constructors
-        public ConstructionSelectionModel(GebBauweiseEntity construction)
+        public ConstructionSelectionModel(GebBauweiseEntity construction, bool isSelected)
         {
             Entity = construction;
+            _isSelected = isSelected;
         }
         #endregion
 
